@@ -1,39 +1,25 @@
-#include <string>
+#include "window.h"
+#include "board.h"
 
-class Window {
-private:
-    bool isPencil;
+Window::Window(QWidget *parent) : QMainWindow(parent)
+{
+  // Create the button, make "this" the parent
+  m_button = new QPushButton("My Button", this);
+  // set size and location of the button
+  m_button->setGeometry(QRect(QPoint(100, 100), QSize(200, 50)));
+ 
+  // Connect button signal to appropriate slot
+  connect(m_button, &QPushButton::released, this, &Window::handleButton);
+}
 
-public:
-    // Constructor is not defined in the UML diagram.
-    // Assuming default constructor here.
-    Window() : isPencil(false) {}
-
-    // Method to display a message
-    void displayMessage(const std::string& message) {
-        // Implementation goes here
-    }
-
-    // Method to write notes, functionality not specified in UML
-    void writeNotes() {
-        // Implementation goes here
-    }
-
-    // Method to display an error message, functionality not specified in UML
-    std::string displayErrorMessage() {
-        // Implementation goes here
-        // This function should probably not return a string but rather modify the window directly.
-        // Return type has been kept as string to match the UML diagram.
-    }
-
-    // Method to display a win message, functionality not specified in UML
-    std::string displayWinMessage() {
-        // Implementation goes here
-        // This function should probably not return a string but rather modify the window directly.
-        // Return type has been kept as string to match the UML diagram.
-    }
-
-    // Destructor is not defined in the UML diagram.
-    // Assuming default destructor here.
-    ~Window() {}
-};
+void Window::handleButton() {
+  // Empty implementation or the actual functionality you want to trigger on button press.
+}
+ 
+// void Window::handleButton()
+// {
+//   // change the text
+//   m_button->setText("Example");
+//   // resize button
+//   m_button->resize(100,100);
+// }

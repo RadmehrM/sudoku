@@ -1,30 +1,21 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#include <string>
+#include <QMainWindow>
+#include <QPushButton>
 
-class Window {
-private:
-    bool isPencil;
-
+namespace Ui {
+  class Window;
+}
+ 
+class Window : public QMainWindow
+{
+  Q_OBJECT
 public:
-    // Constructor
-    Window();
-
-    // Method to display a message
-    void displayMessage(const std::string& message);
-
-    // Method to write notes, functionality not specified in UML
-    void writeNotes();
-
-    // Method to display an error message, functionality not specified in UML
-    std::string displayErrorMessage();
-
-    // Method to display a win message, functionality not specified in UML
-    std::string displayWinMessage();
-
-    // Destructor
-    ~Window();
+  explicit Window(QWidget *parent = nullptr);
+private slots:
+  void handleButton();
+private:
+  QPushButton *m_button;
 };
-
-#endif // WINDOW_H
+#endif

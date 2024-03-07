@@ -9,7 +9,7 @@
 
 class Board {
 private:
-    int** board;
+    
     int N;
 
     int num_of_rows;
@@ -18,6 +18,7 @@ private:
 
 public:
     int** userBoard;
+    int** board;
     // Default constructor
     Board(int N, int missing_dig);
 

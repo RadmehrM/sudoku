@@ -4,6 +4,8 @@ using namespace std;
 
 //Helper Functions//
 
+// The function checks if a specific number is used in a box
+// This can be used to check whether a number can be inputted into a 3x3 box as a valid move
 bool Board::unUsedInBox(int row, int col, int num) {
     for (int i = 0; i < num_of_rows; i++) {
             for (int j = 0; j < num_of_rows; j++) {
@@ -15,6 +17,7 @@ bool Board::unUsedInBox(int row, int col, int num) {
         return true;
 }
 
+// This function can generate a random number between 1 and 9 for the puzzle generator
 int randomGenerator(int n) {
     return (int)floor((float)(rand() / double(RAND_MAX) * n + 1));
 }
@@ -229,11 +232,23 @@ int** Board::getBoard() {
     
 int main() {
     int N = 9;
-    int K = 50;
+    int K = 20; //number of blank boxes
     Board* sudoku = new Board(N, K);
+
+    sudoku->userBoard = new int*[N];
+
+    for (int i = 0; i < N; i++) {
+    sudoku->userBoard[i] = new int[N];
+    for(int j = 0; j < N; j++) {
+        sudoku->userBoard[i][j] = sudoku->board[i][j];
+    }
+    }
+    
     sudoku->fillBoard();
     sudoku->printSudoku();
+    cout << to_string(sudoku->userBoard[0][0]) << endl;
     if (sudoku->solveSudoku())
+        cout << to_string(sudoku->userBoard[0][0]) << endl;
         sudoku->printSudoku(); // If the puzzle is solvable, print the solution
 
     return 0;
