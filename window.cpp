@@ -14,6 +14,7 @@ Window::Window(QWidget *parent) : QMainWindow(parent) {
 
     // Create the grid layout for the Sudoku board
     gridlayout = new QGridLayout();
+    gridlayout->setMargin(0);
     gridlayout->setSpacing(0); // Adjust spacing as needed
 
     // Create the board instance
@@ -58,8 +59,14 @@ Window::Window(QWidget *parent) : QMainWindow(parent) {
     QPushButton *newGameButton = new QPushButton("New Game");
     
     // Connect buttons to their respective slots
-    connect(fillGridButton, &QPushButton::clicked, this, [this] { /* TODO: Implement fillGrid logic */ });
-    connect(newGameButton, &QPushButton::clicked, this, [this] { /* TODO: Implement newGame logic */ });
+    connect(fillGridButton, &QPushButton::clicked, this, [this] { 
+        sudokuBoard->solveSudoku(); 
+        updateBoard();
+        });
+    connect(newGameButton, &QPushButton::clicked, this, [this] { 
+        sudokuBoard->regenerateBoard();
+        updateBoard();
+    });
 
     buttonLayout->addWidget(fillGridButton);
     buttonLayout->addWidget(newGameButton);
@@ -100,4 +107,23 @@ void Window::setLineEditValue(int row, int col, const QString &value) {
     }
     // Print an error message or handle the case where the widget is not found
     cerr << "Failed to set value at position (" << row << ", " << col << ")" << endl;
+}
+
+
+void Window::updateBoard() {
+    // Iterate over the board
+    for (int row = 0; row < 9; ++row) {
+        for (int col = 0; col < 9; ++col) {
+            // Get the QLineEdit widget at position (row, col)
+            QLineEdit *lineEdit = qobject_cast<QLineEdit*>(gridlayout->itemAtPosition(row, col)->widget());
+            if (lineEdit) {
+                // Get the value from the sudokuBoard
+                int value = sudokuBoard->getBoard()[row][col];
+                // Update the text of the QLineEdit
+                lineEdit->setText(value != 0 ? QString::number(value) : "");
+                // Set read-only property for pre-filled cells
+                lineEdit->setReadOnly(value != 0);
+            }
+        }
+    }
 }

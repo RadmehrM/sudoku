@@ -18,6 +18,7 @@ public:
 
 private slots:
   void setLineEditValue(int N, int M, const QString &value);
+  void updateBoard();
 
 private:
   QGridLayout *gridlayout;
