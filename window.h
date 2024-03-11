@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <QGridLayout>
+#include "board.h"
 
 namespace Ui {
   class Window;
@@ -15,7 +16,7 @@ class Window : public QMainWindow
 public:
   explicit Window(QWidget *parent = nullptr);
 private slots:
-  // void handleButton();
+  void setLineEditValue(int N, int M, const QString &value);
 private:
   QGridLayout *gridlayout;
 };
