@@ -1,5 +1,6 @@
 #include "window.h"
-#include <QPushButton>
+#include <QLineEdit>
+#include <QValidator>
 #include <QApplication>
 
 Window::Window(QWidget *parent) : QMainWindow(parent)
@@ -20,25 +21,30 @@ Window::Window(QWidget *parent) : QMainWindow(parent)
     // Add buttons to the grid layout
     for (int row = 0; row < 9; ++row) {
         for (int col = 0; col < 9; ++col) {
-            QPushButton *button = new QPushButton("");
-            button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-            button->setMinimumSize(75, 75); // Adjust size as needed
+            QLineEdit *lineEdit = new QLineEdit();
+            lineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+            lineEdit->setMinimumSize(75, 75); // Adjust size as needed
+            lineEdit->setFont(QFont("Arial", 20)); // Adjust font size as needed
+            lineEdit->setAlignment(Qt::AlignCenter);
+            lineEdit->setMaxLength(1); // Only allow one character
+            lineEdit->setValidator(new QIntValidator(1, 9, this)); // Only allow numbers 1-9
 
-            // Customize the button style. Change the thickness of the border as you like.
-            QString buttonStyle = "border: 1px solid black;";
+            // Customize the QLineEdit style. Change the thickness of the border as you like.
+            QString lineEditStyle = "border: 1px solid black;";
 
             // For every third row and column, increase the border size to visually separate 3x3 grids
             if ((row + 1) % 3 == 0 && row != 8) {
-                buttonStyle.append("border-bottom: 3px solid black;");
+                lineEditStyle.append("border-bottom: 3px solid black;");
             }
             if ((col + 1) % 3 == 0 && col != 8) {
-                buttonStyle.append("border-right: 3px solid black;");
+                lineEditStyle.append("border-right: 3px solid black;");
             }
 
-            button->setStyleSheet(buttonStyle);
-            gridlayout->addWidget(button, row, col);
+            lineEdit->setStyleSheet(lineEditStyle);
+            gridlayout->addWidget(lineEdit, row, col);
         }
     }
+
 
     // Set the grid layout as the layout of the central widget
     centralWidget->setLayout(gridlayout);
