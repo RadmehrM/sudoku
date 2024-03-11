@@ -21,6 +21,7 @@ Window::Window(QWidget *parent) : QMainWindow(parent)
 
     // Create a grid layout for the central widget
     gridlayout = new QGridLayout(centralWidget);
+    //might give error
     gridlayout->setMargin(0);
     gridlayout->setSpacing(0); // Adjust spacing as needed
 
