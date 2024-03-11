@@ -49,7 +49,7 @@ bool Board::unUsedInRow(int i, int num)
         return true;
     }
 
-//
+
 
 
 Board::Board(int rows, int M) {
@@ -228,27 +228,28 @@ int** Board::getBoard() {
 
 
     
-int main() {
-    int N = 9;
-    int K = 20; //number of blank boxes
-    Board* sudoku = new Board(N, K);
+// int main() {
+//     // int N = 9;
+//     // int K = 20; //number of blank boxes
+//     // Board* sudoku = new Board(N, K);
 
-    sudoku->userBoard = new int*[N];
+//     // sudoku->userBoard = new int*[N];
 
-    for (int i = 0; i < N; i++) {
-    sudoku->userBoard[i] = new int[N];
-    for(int j = 0; j < N; j++) {
-        sudoku->userBoard[i][j] = sudoku->board[i][j];
-    }
-    }
+//     // for (int i = 0; i < N; i++) {
+//     // sudoku->userBoard[i] = new int[N];
+//     // for(int j = 0; j < N; j++) {
+//     //     sudoku->userBoard[i][j] = sudoku->board[i][j];
+//     // }
+//     // }
     
-    sudoku->fillBoard();
-    sudoku->printSudoku();
-    cout << to_string(sudoku->userBoard[0][0]) << endl;
-    if (sudoku->solveSudoku())
-        cout << to_string(sudoku->userBoard[0][0]) << endl;
-        sudoku->printSudoku(); // If the puzzle is solvable, print the solution
+//     // sudoku->fillBoard();
+//     // sudoku->printSudoku();
+//     // cout << to_string(sudoku->userBoard[0][0]) << endl;
+//     // if (sudoku->solveSudoku())
+//     //     cout << to_string(sudoku->userBoard[0][0]) << endl;
+//     //     sudoku->printSudoku(); // If the puzzle is solvable, print the solution
 
-    return 0;
-}
+//     return 0;
+// }
+
 
