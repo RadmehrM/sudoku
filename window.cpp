@@ -1,25 +1,34 @@
 #include "window.h"
-#include "board.h"
+#include <QPushButton>
 
 Window::Window(QWidget *parent) : QMainWindow(parent)
 {
-  // Create the button, make "this" the parent
-  m_button = new QPushButton("My Button", this);
-  // set size and location of the button
-  m_button->setGeometry(QRect(QPoint(100, 100), QSize(200, 50)));
- 
-  // Connect button signal to appropriate slot
-  connect(m_button, &QPushButton::released, this, &Window::handleButton);
-}
+    // Create a central widget to hold the grid layout
+    QWidget *centralWidget = new QWidget(this);
+    
+    setCentralWidget(centralWidget);
+    centralWidget->setStyleSheet("background-color: white;");
+    centralWidget->setStyleSheet("border: 2px solid black;");
+    centralWidget->setContentsMargins(0, 0, 0, 0);
 
-void Window::handleButton() {
-  // Empty implementation or the actual functionality you want to trigger on button press.
+
+    // Create a grid layout for the central widget
+    gridlayout = new QGridLayout(centralWidget);
+    gridlayout->setSpacing(0); // Adjust spacing as needed
+
+    // Add buttons to the grid layout
+    for (int row = 0; row < 9; ++row) {
+        for (int col = 0; col < 9; ++col) {
+            QPushButton *button = new QPushButton(QString::number(row * 9 + col + 1));
+            button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+            button->setMinimumSize(100,100);
+            button->setStyleSheet("border: 1px solid black onset;");
+            gridlayout->addWidget(button, row, col);
+        }
+    }
+
+    // Set the grid layout as the layout of the central widget
+    centralWidget->setLayout(gridlayout);
+    
 }
- 
-// void Window::handleButton()
-// {
-//   // change the text
-//   m_button->setText("Example");
-//   // resize button
-//   m_button->resize(100,100);
-// }

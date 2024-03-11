@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QPushButton>
+#include <QGridLayout>
 
 namespace Ui {
   class Window;
@@ -14,8 +15,8 @@ class Window : public QMainWindow
 public:
   explicit Window(QWidget *parent = nullptr);
 private slots:
-  void handleButton();
+  // void handleButton();
 private:
-  QPushButton *m_button;
+  QGridLayout *gridlayout;
 };
 #endif
