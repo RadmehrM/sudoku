@@ -6,64 +6,78 @@
 
 using namespace std;
 
-Window::Window(QWidget *parent) : QMainWindow(parent)
-{
-    int N = 9;
-    int K = 20; // Number of blank boxes
-    Board* sudoku = new Board(N, K); // Assuming Board class has a constructor
-
-    // Create a central widget to hold the grid layout
+Window::Window(QWidget *parent) : QMainWindow(parent) {
+    // Create a central widget to hold the grid and buttons layout
     QWidget *centralWidget = new QWidget(this);
     setCentralWidget(centralWidget);
-    centralWidget->setStyleSheet("background-color: white;");
-    centralWidget->setStyleSheet("border: 2px solid black;");
-    centralWidget->setContentsMargins(0, 0, 0, 0);
+    QHBoxLayout *mainLayout = new QHBoxLayout(centralWidget); // Main layout is horizontal
 
-    // Create a grid layout for the central widget
-    gridlayout = new QGridLayout(centralWidget);
-    //might give error
-    gridlayout->setMargin(0);
+    // Create the grid layout for the Sudoku board
+    gridlayout = new QGridLayout();
     gridlayout->setSpacing(0); // Adjust spacing as needed
 
+    // Create the board instance
+    sudokuBoard = new Board(9, 20); // Board class must have a constructor
+
     // Fill the board and print sudoku before creating LineEdits
-    sudoku->fillBoard();
-    sudoku->printSudoku();
+    sudokuBoard->fillBoard();
+    sudokuBoard->printSudoku();
 
     // Add QLineEdit widgets to the grid layout
     for (int row = 0; row < 9; ++row) {
         for (int col = 0; col < 9; ++col) {
             QLineEdit *lineEdit = new QLineEdit();
             lineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-            lineEdit->setMinimumSize(75, 75); // Adjust size as needed
-            lineEdit->setFont(QFont("Arial", 20)); // Adjust font size as needed
+            lineEdit->setMinimumSize(75, 75);
+            lineEdit->setFont(QFont("Arial", 20));
             lineEdit->setAlignment(Qt::AlignCenter);
-            lineEdit->setMaxLength(1); // Only allow one character
-            lineEdit->setValidator(new QIntValidator(1, 9, this)); // Only allow numbers 1-9
+            lineEdit->setMaxLength(1);
+            lineEdit->setValidator(new QIntValidator(1, 9, this));
 
-            // Customize the QLineEdit style. Change the thickness of the border as you like.
+            // Customize the QLineEdit style
             QString lineEditStyle = "border: 1px solid black;";
+            if ((row + 1) % 3 == 0 && row != 8) lineEditStyle.append("border-bottom: 3px solid black;");
+            if ((col + 1) % 3 == 0 && col != 8) lineEditStyle.append("border-right: 3px solid black;");
+            lineEdit->setStyleSheet(lineEditStyle + " color: black;");
 
-            // For every third row and column, increase the border size to visually separate 3x3 grids
-            if ((row + 1) % 3 == 0 && row != 8) {
-                lineEditStyle.append("border-bottom: 3px solid black;");
-            }
-            if ((col + 1) % 3 == 0 && col != 8) {
-                lineEditStyle.append("border-right: 3px solid black;");
-            }
-
-            lineEdit->setStyleSheet(lineEditStyle);
             gridlayout->addWidget(lineEdit, row, col);
-
-            // Assuming board is filled with initial values from the Board constructor
+            
             // Set the value of the LineEdit to the corresponding value in the board
-            int temp = sudoku->board[row][col];
-            setLineEditValue(row, col, QString::number(temp));
+            int value = sudokuBoard->getBoard()[row][col];
+            lineEdit->setText(value != 0 ? QString::number(value) : "");
+            lineEdit->setReadOnly(value != 0); // Pre-filled cells are read-only
         }
     }
 
-    // Set the grid layout as the layout of the central widget
-    centralWidget->setLayout(gridlayout);
+    // Add the grid layout to the main layout
+    mainLayout->addLayout(gridlayout);
+
+    // Create buttons and add them to a vertical layout
+    QVBoxLayout *buttonLayout = new QVBoxLayout();
+    QPushButton *fillGridButton = new QPushButton("Fill Grid");
+    QPushButton *newGameButton = new QPushButton("New Game");
+    
+    // Connect buttons to their respective slots
+    connect(fillGridButton, &QPushButton::clicked, this, [this] { /* TODO: Implement fillGrid logic */ });
+    connect(newGameButton, &QPushButton::clicked, this, [this] { /* TODO: Implement newGame logic */ });
+
+    buttonLayout->addWidget(fillGridButton);
+    buttonLayout->addWidget(newGameButton);
+    buttonLayout->addStretch(); // Push buttons to the top
+
+    fillGridButton->setStyleSheet("color: black;");
+    newGameButton->setStyleSheet("color: black;");
+
+    // Add the button layout to the main layout
+    mainLayout->addLayout(buttonLayout);
+
+    // Set the main layout as the layout for the central widget
+    centralWidget->setLayout(mainLayout);
+
+    // Set style for the central widget
+    centralWidget->setStyleSheet("background-color: white; border: 2px solid black;");
 }
+
 
 void Window::setLineEditValue(int row, int col, const QString &value) {
     // Get the item (widget) at the specified row and column in the grid layout
