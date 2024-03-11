@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <QGridLayout>
+#include <QLineEdit>
+#include <QVector>
 #include "board.h"
 
 namespace Ui {
@@ -18,6 +20,7 @@ public:
 
 private slots:
   void setLineEditValue(int N, int M, const QString &value);
+  void validateInput();
   void updateBoard();
 
 private:
@@ -26,6 +29,7 @@ private:
   QPushButton *newGameButton;   // Button to generate a new puzzle
   Board *sudokuBoard; 
 
+  void checkConflict(int row, int col, int value, QLineEdit* sender, QVector<QLineEdit*>& conflictCells);
   void createButtons();
   void createLayout();
 };
