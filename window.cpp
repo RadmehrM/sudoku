@@ -1,5 +1,6 @@
 #include "window.h"
 #include <QPushButton>
+#include <QApplication>
 
 Window::Window(QWidget *parent) : QMainWindow(parent)
 {
@@ -19,11 +20,22 @@ Window::Window(QWidget *parent) : QMainWindow(parent)
     // Add buttons to the grid layout
     for (int row = 0; row < 9; ++row) {
         for (int col = 0; col < 9; ++col) {
-            QPushButton *button = new QPushButton(QString::number(row * 9 + col + 1));
+            QPushButton *button = new QPushButton("");
             button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+            button->setMinimumSize(75, 75); // Adjust size as needed
 
-            button->setMinimumSize(100,100);
-            button->setStyleSheet("border: 1px solid black onset;");
+            // Customize the button style. Change the thickness of the border as you like.
+            QString buttonStyle = "border: 1px solid black;";
+
+            // For every third row and column, increase the border size to visually separate 3x3 grids
+            if ((row + 1) % 3 == 0 && row != 8) {
+                buttonStyle.append("border-bottom: 3px solid black;");
+            }
+            if ((col + 1) % 3 == 0 && col != 8) {
+                buttonStyle.append("border-right: 3px solid black;");
+            }
+
+            button->setStyleSheet(buttonStyle);
             gridlayout->addWidget(button, row, col);
         }
     }
