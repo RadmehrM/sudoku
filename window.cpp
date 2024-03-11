@@ -21,6 +21,7 @@ Window::Window(QWidget *parent) : QMainWindow(parent)
 
     // Create a grid layout for the central widget
     gridlayout = new QGridLayout(centralWidget);
+    gridlayout->setMargin(0);
     gridlayout->setSpacing(0); // Adjust spacing as needed
 
     // Fill the board and print sudoku before creating LineEdits
@@ -61,6 +62,23 @@ Window::Window(QWidget *parent) : QMainWindow(parent)
 
     // Set the grid layout as the layout of the central widget
     centralWidget->setLayout(gridlayout);
-    
 }
 
+void Window::setLineEditValue(int row, int col, const QString &value) {
+    // Get the item (widget) at the specified row and column in the grid layout
+    QLayoutItem *layoutItem = gridlayout->itemAtPosition(row, col);
+    if (layoutItem) {
+        QWidget *widget = layoutItem->widget();
+        if (widget) {
+            // Check if the widget is a QLineEdit
+            QLineEdit *lineEdit = qobject_cast<QLineEdit*>(widget);
+            if (lineEdit) {
+                // Set the new value for the QLineEdit
+                lineEdit->setText(value);
+                return; // Exit function early if everything is successful
+            }
+        }
+    }
+    // Print an error message or handle the case where the widget is not found
+    cerr << "Failed to set value at position (" << row << ", " << col << ")" << endl;
+}
