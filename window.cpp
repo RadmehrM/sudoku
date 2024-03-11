@@ -2,6 +2,8 @@
 #include <QLineEdit>
 #include <QValidator>
 #include <QApplication>
+#include <QTimer>
+#include <QVector>
 #include <iostream>
 
 using namespace std;
@@ -33,6 +35,9 @@ Window::Window(QWidget *parent) : QMainWindow(parent) {
             lineEdit->setAlignment(Qt::AlignCenter);
             lineEdit->setMaxLength(1);
             lineEdit->setValidator(new QIntValidator(1, 9, this));
+
+            // for validating input
+            connect(lineEdit, &QLineEdit::textEdited, this, &Window::validateInput);
 
             // Customize the QLineEdit style
             QString lineEditStyle = "border: 1px solid black;";
@@ -100,4 +105,72 @@ void Window::setLineEditValue(int row, int col, const QString &value) {
     }
     // Print an error message or handle the case where the widget is not found
     cerr << "Failed to set value at position (" << row << ", " << col << ")" << endl;
+}
+
+void Window::validateInput() {
+    QLineEdit *senderLineEdit = qobject_cast<QLineEdit*>(sender());
+    if (!senderLineEdit) {
+        return; // If for some reason the sender is not a QLineEdit, exit
+    }
+
+    // Determine the position of the sender QLineEdit in the grid
+    const int senderIndex = gridlayout->indexOf(senderLineEdit);
+    const int senderRow = senderIndex / 9;
+    const int senderColumn = senderIndex % 9;
+
+    // Convert the input to a number
+    bool ok;
+    int inputValue = senderLineEdit->text().toInt(&ok);
+    if (!ok || inputValue == 0) {
+        cerr << "Invalid input." << endl;
+        return; // Invalid input, exit the function
+    }
+
+    // Initialize variables to store conflicting cells
+    QVector<QLineEdit*> conflictCells;
+
+    // Check if the input is already used in the 3x3 subsection, row, or column
+    for (int i = 0; i < 9; ++i) {
+        checkConflict(senderRow, i, inputValue, senderLineEdit, conflictCells);
+        checkConflict(i, senderColumn, inputValue, senderLineEdit, conflictCells);
+    }
+
+    // Check the 3x3 subsection for conflicts
+    int boxStartRow = senderRow - senderRow % 3;
+    int boxStartCol = senderColumn - senderColumn % 3;
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 3; ++j) {
+            checkConflict(boxStartRow + i, boxStartCol + j, inputValue, senderLineEdit, conflictCells);
+        }
+    }
+
+    if (!conflictCells.isEmpty()) {
+        // Highlight the conflicting cells in red
+        for (QLineEdit* cell : qAsConst(conflictCells)) {
+            cell->setStyleSheet("background-color: red; color: black;");
+        }
+        
+        // Highlight the senderLineEdit in red to indicate the wrong input
+        senderLineEdit->setStyleSheet("background-color: red; color: black;");
+
+        // Set a timer to remove the highlight from the conflicting cells after 1 second
+        QTimer::singleShot(1000, [conflictCells, senderLineEdit]{
+            for (QLineEdit* cell : conflictCells) {
+                cell->setStyleSheet("border: 1px solid black; color: black;");
+            }
+            // Also, clear the input from the sender QLineEdit and reset its style
+            senderLineEdit->clear();
+            senderLineEdit->setStyleSheet("border: 1px solid black; color: black;");
+        });
+
+        cerr << "The number " << inputValue << " is already in the row, column, or subsection." << endl;
+    }
+}
+
+
+void Window::checkConflict(int row, int col, int value, QLineEdit* sender, QVector<QLineEdit*>& conflictCells) {
+    QLineEdit *cell = qobject_cast<QLineEdit*>(gridlayout->itemAtPosition(row, col)->widget());
+    if (cell && cell != sender && cell->text().toInt() == value) {
+        conflictCells.push_back(cell);
+    }
 }
