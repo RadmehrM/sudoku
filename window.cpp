@@ -73,8 +73,12 @@ void Window::setLineEditValue(int row, int col, const QString &value) {
             // Check if the widget is a QLineEdit
             QLineEdit *lineEdit = qobject_cast<QLineEdit*>(widget);
             if (lineEdit) {
+                if (value == "0") {
+                    lineEdit->setText("");
+                } else {
                 // Set the new value for the QLineEdit
                 lineEdit->setText(value);
+                }
                 return; // Exit function early if everything is successful
             }
         }
