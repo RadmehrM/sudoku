@@ -227,8 +227,6 @@ int** Board::getBoard() {
 
 
 
-
-
     
 int main() {
     int N = 9;

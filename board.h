@@ -54,8 +54,6 @@ public:
 
     int** getBoard();
 
-
-
     // Destructor
     ~Board();
 };
