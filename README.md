@@ -2,6 +2,9 @@
 
 how to build & run the app:
 
+  WINDOWS DEPENDENCIES: None <br/>
+  MAC DEPENDENCIES: brew install qt (enter in terminal)
+
   enter the following commands into your terminal once you have the project folder open:
   
   1. qmake sudoku.pro
