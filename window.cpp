@@ -8,6 +8,14 @@
 
 using namespace std;
 
+/**
+ * @brief Constructs a Window object.
+ * 
+ * This constructor initializes the main window of the Sudoku application.
+ * It sets up the layout, creates the Sudoku board, fills the board, and connects signals and slots.
+ * 
+ * @param parent The parent widget.
+ */
 Window::Window(QWidget *parent) : QMainWindow(parent) {
     // Create a central widget to hold the grid and buttons layout
     QWidget *centralWidget = new QWidget(this);
@@ -16,7 +24,6 @@ Window::Window(QWidget *parent) : QMainWindow(parent) {
 
     // Create the grid layout for the Sudoku board
     gridlayout = new QGridLayout();
-    //gridlayout->setMargin(0);
     gridlayout->setSpacing(0); // Adjust spacing as needed
 
     // Create the board instance
@@ -89,7 +96,16 @@ Window::Window(QWidget *parent) : QMainWindow(parent) {
     centralWidget->setStyleSheet("background-color: white; border: 2px solid black;");
 }
 
-
+/**
+ * @brief Sets the value of a QLineEdit widget at the specified position.
+ * 
+ * This function updates the text of the QLineEdit widget at the specified row and column
+ * in the grid layout with the provided value.
+ * 
+ * @param row The row index of the QLineEdit widget.
+ * @param col The column index of the QLineEdit widget.
+ * @param value The value to set in the QLineEdit.
+ */
 void Window::setLineEditValue(int row, int col, const QString &value) {
     // Get the item (widget) at the specified row and column in the grid layout
     QLayoutItem *layoutItem = gridlayout->itemAtPosition(row, col);
@@ -113,6 +129,12 @@ void Window::setLineEditValue(int row, int col, const QString &value) {
     cerr << "Failed to set value at position (" << row << ", " << col << ")" << endl;
 }
 
+/**
+ * @brief Validates the input in a QLineEdit widget.
+ * 
+ * This function is called when the text in a QLineEdit widget is edited.
+ * It validates the input according to Sudoku rules and highlights conflicting cells.
+ */
 void Window::validateInput() {
     QLineEdit *senderLineEdit = qobject_cast<QLineEdit*>(sender());
     if (!senderLineEdit) {
@@ -174,6 +196,18 @@ void Window::validateInput() {
     }
 }
 
+/**
+ * @brief Checks for conflicts in the Sudoku board.
+ * 
+ * This function checks for conflicts caused by adding a specific value to a cell.
+ * It checks the row, column, and 3x3 subsection of the cell for conflicts.
+ * 
+ * @param row The row index of the cell.
+ * @param col The column index of the cell.
+ * @param value The value to check for conflicts.
+ * @param sender The sender QLineEdit widget.
+ * @param conflictCells Vector to store conflicting cells.
+ */
 void Window::checkConflict(int row, int col, int value, QLineEdit* sender, QVector<QLineEdit*>& conflictCells) {
     QLineEdit *cell = qobject_cast<QLineEdit*>(gridlayout->itemAtPosition(row, col)->widget());
     if (cell && cell != sender && cell->text().toInt() == value) {
@@ -181,7 +215,12 @@ void Window::checkConflict(int row, int col, int value, QLineEdit* sender, QVect
     }
 }
 
-
+/**
+ * @brief Updates the Sudoku board displayed on the window.
+ * 
+ * This function updates the Sudoku board displayed on the window
+ * based on the values stored in the sudokuBoard object.
+ */
 void Window::updateBoard() {
     // Iterate over the board
     for (int row = 0; row < 9; ++row) {
@@ -199,3 +238,4 @@ void Window::updateBoard() {
         }
     }
 }
+
