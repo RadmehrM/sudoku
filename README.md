@@ -6,5 +6,5 @@ how to build & run the app:
   
   1. qmake sudoku.pro
   2. make
-  3.1. IF ON WINDOWS: ./sudoku
-  3.2. IF ON MAC: do not enter a command, instead open up the sudoku folder in finder, and click 'sudoku.app'.
+  3.  IF ON WINDOWS: ./sudoku <br/>
+  IF ON MAC: do not enter a command, instead open up the sudoku folder in finder, and click 'sudoku.app'.
