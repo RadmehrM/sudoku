@@ -11,7 +11,7 @@ Menu::Menu(QWidget *parent) : QWidget(parent)  {
         titleLabel->setAlignment(Qt::AlignCenter); // Center the title
         titleLabel->setFont(QFont("Arial", 25, QFont::Bold)); // Set the font to make it look more like a title
         // Assuming you have a layout for your content
-        titleLabel->setStyleSheet("QLabel { padding: 20px; }");
+        titleLabel->setStyleSheet("QLabel { padding: 20px; color:black }");
         layout->addWidget(titleLabel); 
 
 
