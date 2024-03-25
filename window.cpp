@@ -4,6 +4,7 @@
 #include <QApplication>
 #include <QVector>
 #include <QTimer>
+#include <QMessageBox>
 #include <iostream>
 
 using namespace std;
@@ -68,6 +69,10 @@ Window::Window(QWidget *parent) : QMainWindow(parent) {
     QVBoxLayout *buttonLayout = new QVBoxLayout();
     QPushButton *fillGridButton = new QPushButton("Fill Grid");
     QPushButton *newGameButton = new QPushButton("New Game");
+    QPushButton *viewLogbookButton = new QPushButton("View Logbook");
+
+    // Create labels annd add them to a vertical layout
+    QLabel *scoreLabel = new QLabel("Score: x");
     
     // Connect buttons to their respective slots
     connect(fillGridButton, &QPushButton::clicked, this, [this] { 
@@ -78,13 +83,24 @@ Window::Window(QWidget *parent) : QMainWindow(parent) {
         sudokuBoard->regenerateBoard();
         updateBoard();
     });
+    connect(viewLogbookButton, &QPushButton::clicked, this, [this] { 
+        showLogbook();
+        updateBoard();
+    });
+    
 
     buttonLayout->addWidget(fillGridButton);
     buttonLayout->addWidget(newGameButton);
+    buttonLayout->addWidget(viewLogbookButton);
     buttonLayout->addStretch(); // Push buttons to the top
 
     fillGridButton->setStyleSheet("color: black;");
     newGameButton->setStyleSheet("color: black;");
+    viewLogbookButton->setStyleSheet("color: black;");
+
+    scoreLabel->setAlignment(Qt::AlignCenter); // Center the text in the label
+    scoreLabel->setStyleSheet("QLabel { background-color : transparent; color : black; }");
+    mainLayout->addWidget(scoreLabel, 0, Qt::AlignRight | Qt::AlignTop);
 
     // Add the button layout to the main layout
     mainLayout->addLayout(buttonLayout);
@@ -237,5 +253,10 @@ void Window::updateBoard() {
             }
         }
     }
+}
+
+void Window::showLogbook() {
+    // For demonstration, a message box is used as a placeholder for the logbook
+    QMessageBox::information(this, "Logbook", "Logbook content will be displayed here.");
 }
 

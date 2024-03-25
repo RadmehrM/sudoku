@@ -6,6 +6,7 @@
 #include <QGridLayout>
 #include <QLineEdit>
 #include <QVector>
+#include <QLabel>
 #include "board.h"
 
 namespace Ui {
@@ -28,10 +29,14 @@ private:
   QPushButton *fillGridButton;  // Button to fill the grid with a solved puzzle
   QPushButton *newGameButton;   // Button to generate a new puzzle
   Board *sudokuBoard; 
+  QLabel *scoreLabel;
+  QPushButton *viewLogbookButton; 
+  
 
   void checkConflict(int row, int col, int value, QLineEdit* sender, QVector<QLineEdit*>& conflictCells);
   void createButtons();
   void createLayout();
+  void showLogbook(); 
 };
 
 #endif
