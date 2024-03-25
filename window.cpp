@@ -1,4 +1,5 @@
 #include "window.h"
+#include "menu.h"
 #include <QLineEdit>
 #include <QValidator>
 #include <QApplication>
@@ -65,6 +66,9 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores() {
     // Add the grid layout to the main layout
     mainLayout->addLayout(gridlayout);
 
+    // Set up game timer
+    gameTimer = new QElapsedTimer();
+
     // Create buttons and add them to a vertical layout
     QVBoxLayout *buttonLayout = new QVBoxLayout();
     QPushButton *fillGridButton = new QPushButton("Fill Grid");
@@ -111,6 +115,12 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores() {
 
     // Set style for the central widget
     centralWidget->setStyleSheet("background-color: white; border: 2px solid black;");
+
+    Menu *menu = new Menu(this);
+    menu->setStyleSheet("background-color: white; ");
+    menu->resize(850,800);
+    menu->show();
+
 }
 
 /**

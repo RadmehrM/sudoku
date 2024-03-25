@@ -7,6 +7,7 @@
 #include <QLineEdit>
 #include <QVector>
 #include <QLabel>
+#include <QElapsedTimer>
 #include "board.h"
 
 namespace Ui {
@@ -27,6 +28,7 @@ private slots:
 private:
   int score; // Holds the current score
   QVector<int> scores; // Vector to hold scores of completed games
+  QElapsedTimer *gameTimer;
 
   QGridLayout *gridlayout;
   QPushButton *fillGridButton;  // Button to fill the grid with a solved puzzle
