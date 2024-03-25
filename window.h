@@ -7,6 +7,7 @@
 #include <QLineEdit>
 #include <QVector>
 #include <QLabel>
+#include <QElapsedTimer>
 #include "board.h"
 
 namespace Ui {
@@ -25,6 +26,10 @@ private slots:
   void updateBoard();
 
 private:
+  int score; // Holds the current score
+  QVector<int> scores; // Vector to hold scores of completed games
+  QElapsedTimer *gameTimer;
+
   QGridLayout *gridlayout;
   QPushButton *fillGridButton;  // Button to fill the grid with a solved puzzle
   QPushButton *newGameButton;   // Button to generate a new puzzle
@@ -32,11 +37,11 @@ private:
   QLabel *scoreLabel;
   QPushButton *viewLogbookButton; 
   
-
   void checkConflict(int row, int col, int value, QLineEdit* sender, QVector<QLineEdit*>& conflictCells);
   void createButtons();
   void createLayout();
   void showLogbook(); 
+  void incrementScore(int value); // Helper function to increment the score
 };
 
 #endif

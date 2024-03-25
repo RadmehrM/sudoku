@@ -19,8 +19,12 @@ using namespace std;
  * 
  * @param parent The parent widget.
  */
+<<<<<<< HEAD
 Window::Window(QWidget *parent) : QMainWindow(parent) {
 
+=======
+Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores() {
+>>>>>>> d0ef0871040ffe8d731b37cb76acaca53aaa2911
     // Create a central widget to hold the grid and buttons layout
     QWidget *centralWidget = new QWidget(this);
     setCentralWidget(centralWidget);
@@ -68,22 +72,29 @@ Window::Window(QWidget *parent) : QMainWindow(parent) {
     // Add the grid layout to the main layout
     mainLayout->addLayout(gridlayout);
 
+    // Set up game timer
+    gameTimer = new QElapsedTimer();
+
     // Create buttons and add them to a vertical layout
     QVBoxLayout *buttonLayout = new QVBoxLayout();
     QPushButton *fillGridButton = new QPushButton("Fill Grid");
     QPushButton *newGameButton = new QPushButton("New Game");
     QPushButton *viewLogbookButton = new QPushButton("View Logbook");
 
-    // Create labels annd add them to a vertical layout
-    QLabel *scoreLabel = new QLabel("Score: x");
+    scoreLabel = new QLabel("Score: 0", this); // Initialize the QLabel with 'this' as the parent
+    scoreLabel->setAlignment(Qt::AlignCenter);
+    scoreLabel->setStyleSheet("QLabel { background-color : transparent; color : black; }");
     
     // Connect buttons to their respective slots
     connect(fillGridButton, &QPushButton::clicked, this, [this] { 
         sudokuBoard->solveSudoku(); 
         updateBoard();
         });
-    connect(newGameButton, &QPushButton::clicked, this, [this] { 
-        sudokuBoard->regenerateBoard();
+    connect(newGameButton, &QPushButton::clicked, this, [this] {
+        scores.push_back(score); // Save the current score
+        score = 0; // Reset the score for the new game
+        scoreLabel->setText("Score: " + QString::number(score)); // Update the score label
+        sudokuBoard->regenerateBoard(); // Create a new game
         updateBoard();
     });
     connect(viewLogbookButton, &QPushButton::clicked, this, [this] { 
@@ -101,12 +112,9 @@ Window::Window(QWidget *parent) : QMainWindow(parent) {
     newGameButton->setStyleSheet("color: black;");
     viewLogbookButton->setStyleSheet("color: black;");
 
-    scoreLabel->setAlignment(Qt::AlignCenter); // Center the text in the label
-    scoreLabel->setStyleSheet("QLabel { background-color : transparent; color : black; }");
-    mainLayout->addWidget(scoreLabel, 0, Qt::AlignRight | Qt::AlignTop);
-
     // Add the button layout to the main layout
     mainLayout->addLayout(buttonLayout);
+    mainLayout->addWidget(scoreLabel, 0, Qt::AlignRight | Qt::AlignTop);
 
     // Set the main layout as the layout for the central widget
     centralWidget->setLayout(mainLayout);
@@ -118,6 +126,10 @@ Window::Window(QWidget *parent) : QMainWindow(parent) {
     menu->setStyleSheet("background-color: white; ");
     menu->resize(850,800);
     menu->show();
+<<<<<<< HEAD
+=======
+
+>>>>>>> d0ef0871040ffe8d731b37cb76acaca53aaa2911
 }
 
 /**
@@ -151,6 +163,11 @@ void Window::setLineEditValue(int row, int col, const QString &value) {
     }
     // Print an error message or handle the case where the widget is not found
     cerr << "Failed to set value at position (" << row << ", " << col << ")" << endl;
+}
+
+void Window::incrementScore(int value) {
+  score += value; // Increase the score
+  scoreLabel->setText("Score: " + QString::number(score)); // Update the score label
 }
 
 /**
@@ -217,8 +234,12 @@ void Window::validateInput() {
         });
 
         cerr << "The number " << inputValue << " is already in the row, column, or subsection." << endl;
+    } else {
+        // The number is not conflicting and is valid, lock the cell.
+        senderLineEdit->setReadOnly(true);
+        incrementScore(100);
+        }
     }
-}
 
 /**
  * @brief Checks for conflicts in the Sudoku board.
@@ -264,7 +285,16 @@ void Window::updateBoard() {
 }
 
 void Window::showLogbook() {
-    // For demonstration, a message box is used as a placeholder for the logbook
-    QMessageBox::information(this, "Logbook", "Logbook content will be displayed here.");
+    QString logbookContent;
+    for(int i = 0; i < scores.size(); ++i) {
+        logbookContent += "Game " + QString::number(i + 1) + ": " + QString::number(scores[i]) + "\n";
+    }
+
+    // Check if logbookContent is empty
+    if(logbookContent.isEmpty()) {
+        logbookContent = "No games completed yet.";
+    }
+
+    QMessageBox::information(this, "Logbook", logbookContent);
 }
 
