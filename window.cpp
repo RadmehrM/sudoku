@@ -1,4 +1,5 @@
 #include "window.h"
+#include "menu.h"
 #include <QLineEdit>
 #include <QValidator>
 #include <QApplication>
@@ -6,6 +7,7 @@
 #include <QTimer>
 #include <QMessageBox>
 #include <iostream>
+
 
 using namespace std;
 
@@ -18,6 +20,7 @@ using namespace std;
  * @param parent The parent widget.
  */
 Window::Window(QWidget *parent) : QMainWindow(parent) {
+
     // Create a central widget to hold the grid and buttons layout
     QWidget *centralWidget = new QWidget(this);
     setCentralWidget(centralWidget);
@@ -110,6 +113,11 @@ Window::Window(QWidget *parent) : QMainWindow(parent) {
 
     // Set style for the central widget
     centralWidget->setStyleSheet("background-color: white; border: 2px solid black;");
+
+    Menu *menu = new Menu(this);
+    menu->setStyleSheet("background-color: white; ");
+    menu->resize(850,800);
+    menu->show();
 }
 
 /**
