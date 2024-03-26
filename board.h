@@ -11,7 +11,6 @@ class Board {
 private:
     
     int N;
-
     int num_of_rows;
     int missing_dig;
 
@@ -48,14 +47,15 @@ public:
 
     void regenerateBoard();
 
+    void regenerateBoard(std::string diff);
+
     bool solveSudoku();
 
     bool findUnassignedLocation(int &row, int &col);
 
     int** getBoard();
 
-    // Destructor
-    ~Board();
+
 };
 
 #endif // BOARD_H

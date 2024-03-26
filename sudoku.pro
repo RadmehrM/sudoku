@@ -4,4 +4,4 @@ TARGET = sudoku
 TEMPLATE = app
 
 SOURCES += main.cpp window.cpp board.cpp menu.cpp
-HEADERS += window.h
+HEADERS += window.h menu.h board.h

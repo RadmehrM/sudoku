@@ -1,5 +1,4 @@
 #include "window.h"
-#include "menu.h"
 #include <QLineEdit>
 #include <QValidator>
 #include <QApplication>
@@ -20,7 +19,7 @@ using namespace std;
  */
 Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores() {
     // Create a central widget to hold the grid and buttons layout
-    QWidget *centralWidget = new QWidget(this);
+    centralWidget = new QWidget(this);
     setCentralWidget(centralWidget);
     QHBoxLayout *mainLayout = new QHBoxLayout(centralWidget); // Main layout is horizontal
 
@@ -114,12 +113,27 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores() {
     centralWidget->setLayout(mainLayout);
 
     // Set style for the central widget
-    centralWidget->setStyleSheet("background-color: white; border: 2px solid black;");
+    centralWidget->setStyleSheet("border: 2px solid black;");
 
-    Menu *menu = new Menu(this);
-    menu->setStyleSheet("background-color: white; ");
+
+
+    
+    stackedWidget = new QStackedWidget(this);
+    Menu *menu = new Menu(stackedWidget);
     menu->resize(850,800);
+    menu->setStyleSheet("{ background-color: white; }");
     menu->show();
+    connect(menu, &Menu::difficultyChanged, this, &Window::onDifficultyChanged);
+    connect(menu, &Menu::beginGame, this, &Window::beginGame);
+
+
+    stackedWidget->addWidget(menu);
+    stackedWidget->addWidget(centralWidget);
+    setCentralWidget(stackedWidget);
+
+    // To show the menu:
+    stackedWidget->setCurrentWidget(menu);
+
 
 }
 
@@ -287,5 +301,29 @@ void Window::showLogbook() {
     }
 
     QMessageBox::information(this, "Logbook", logbookContent);
+}
+
+void Window::onDifficultyChanged(int newDifficulty) {
+    // Delete the existing board if necessary
+    if (sudokuBoard) {
+        delete sudokuBoard;
+        sudokuBoard = nullptr;
+    }
+
+    // Reinitialize the board based on the new difficulty
+    if (newDifficulty == 0) sudokuBoard = new Board(9, 10);
+    else if (newDifficulty == 1) sudokuBoard = new Board(9, 20);
+    else if (newDifficulty == 2) sudokuBoard = new Board(9, 40);
+
+    // Assume regenerateBoard() fills the board and resets it for the new difficulty
+    sudokuBoard->regenerateBoard();
+    
+    // Update UI elements to reflect the new board
+    updateBoard();
+}
+
+void Window::beginGame() {
+    stackedWidget->setCurrentWidget(centralWidget);
+
 }
 

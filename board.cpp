@@ -243,6 +243,25 @@ void Board::regenerateBoard() {
     remove_missing_digs();
 }
 
+void Board::regenerateBoard(std::string diff) {
+    if (diff == "Easy") {
+        missing_dig = 10;
+    }
+    if (diff == "Medium") {
+        missing_dig = 20;
+    }
+    if (diff == "Hard") {
+        missing_dig = 40;
+    }
+
+    resetBoard();
+
+    // Now fill the board again with new values
+    fillDiagonal();
+    fillRemaining(0, num_of_rows);
+    remove_missing_digs();
+}
+
 /**
  * @brief Solves the Sudoku puzzle.
  * 

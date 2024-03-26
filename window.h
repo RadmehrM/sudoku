@@ -3,12 +3,15 @@
 
 #include <QMainWindow>
 #include <QPushButton>
+#include <QStackedWidget>
 #include <QGridLayout>
 #include <QLineEdit>
 #include <QVector>
 #include <QLabel>
 #include <QElapsedTimer>
 #include "board.h"
+#include "menu.h"
+
 
 namespace Ui {
   class Window;
@@ -19,6 +22,13 @@ class Window : public QMainWindow {
 
 public:
   explicit Window(QWidget *parent = nullptr);
+  QStackedWidget *stackedWidget;
+
+
+public slots:
+    void onDifficultyChanged(int newDifficulty);
+    void beginGame();
+
 
 private slots:
   void setLineEditValue(int N, int M, const QString &value);
@@ -35,7 +45,8 @@ private:
   QPushButton *newGameButton;   // Button to generate a new puzzle
   Board *sudokuBoard; 
   QLabel *scoreLabel;
-  QPushButton *viewLogbookButton; 
+  QPushButton *viewLogbookButton;
+  QWidget *centralWidget;
   
   void checkConflict(int row, int col, int value, QLineEdit* sender, QVector<QLineEdit*>& conflictCells);
   void createButtons();
