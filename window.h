@@ -11,6 +11,7 @@
 #include <QElapsedTimer>
 #include "board.h"
 #include "menu.h"
+#include "hints.h"
 
 
 namespace Ui {
@@ -47,6 +48,7 @@ private:
   QLabel *scoreLabel;
   QPushButton *viewLogbookButton;
   QWidget *centralWidget;
+  HintsWindow *hintsWindow;
   
   void checkConflict(int row, int col, int value, QLineEdit* sender, QVector<QLineEdit*>& conflictCells);
   void createButtons();

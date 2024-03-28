@@ -2,40 +2,43 @@
 #include <QApplication>
 #include <QWidget>
 #include <QTextEdit>
-#include <QShortcut>
+#include <QPushButton>
+#include <QLayout>
 
-//Create the main window when the hint page opens
 HintsWindow::HintsWindow(QWidget *parent) : QWidget(parent) {
-    setFixedSize(200, 150);
     textEdit = new QTextEdit(this);
     textEdit->setReadOnly(true);
 
-    //An additional message for the user 
-    textEdit ->append("Press the 'h' key to receive a new hint");
-    setStyleSheet("background-color: none;");
-    QShortcut *shortcut = new QShortcut(QKeySequence("h"), this);
-    connect(shortcut, &QShortcut::activated, this, &HintsWindow::showHint);
+    QFont font = textEdit->font();  // Get the current font
+    font.setPointSize(10);  // Set the font size to 12 points
+    
 
-    this->setStyleSheet("border: solid 2px black;");
-    //hide();
+    textEdit->setFont(font);  // Apply the font to the textEdit widget
+
+    QHBoxLayout *layout = new QHBoxLayout();
+    layout->addWidget(textEdit);
+
+    this->setLayout(layout);
+    this->setFixedSize(145, 600); // Set a default size for the hints window
 }
+
 
 //Show the hint for the user
 void HintsWindow::showHint() {
     show();
-    textEdit->append(getHint().c_str());
+    textEdit->setText(getHint().c_str());
     }
 
 QTextEdit *textEdit;
 //String of all the hint being used for the game 
 std::string HintsWindow::getHint() {
     static std::vector<std::string> hints = {
-        "Look for numbers that can only go in one spot.",
-        "Count the number of the same value in a row, column or sub-section blocks.",
-        "Focus on a specific row, column or sub-section block to complete it.",
-        "Check if any rows, columns, or blocks are missing a specific number.",
-        "Focus on the numbers that appear most frequently.",
-        "Consider the numbers that are already present and what numbers are missing."
+        "Look for numbers that can only go in one spot.\n",
+        "Count the number of the same value in a row, column or sub-section blocks.\n",
+        "Focus on a specific row, column or sub-section block to complete it.\n",
+        "Check if any rows, columns, or blocks are missing a specific number.\n",
+        "Focus on the numbers that appear most frequently.\n",
+        "Consider the numbers that are already present and what numbers are missing.\n"
     };
 
     static int hintIndex = 0;

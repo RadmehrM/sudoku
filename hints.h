@@ -9,7 +9,7 @@ class HintsWindow : public QWidget {
 public:
     explicit HintsWindow(QWidget *parent = nullptr);
 
-private slots:
+public slots:
     void showHint();
 
 private:
