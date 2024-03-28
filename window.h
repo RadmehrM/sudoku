@@ -38,7 +38,9 @@ private slots:
 private:
   int score; // Holds the current score
   QVector<int> scores; // Vector to hold scores of completed games
+  
   QElapsedTimer *gameTimer;
+  QVector<qint64> gameDurations; 
 
   QGridLayout *gridlayout;
   QPushButton *fillGridButton;  // Button to fill the grid with a solved puzzle

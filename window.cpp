@@ -17,7 +17,7 @@ using namespace std;
  * 
  * @param parent The parent widget.
  */
-Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores() {
+Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores(), gameDurations() {
     // Create a central widget to hold the grid and buttons layout
     centralWidget = new QWidget(this);
     setCentralWidget(centralWidget);
@@ -67,6 +67,7 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores() {
 
     // Set up game timer
     gameTimer = new QElapsedTimer();
+    gameTimer->start();
 
     // Create buttons and add them to a vertical layout
     QVBoxLayout *buttonLayout = new QVBoxLayout();
@@ -84,9 +85,14 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores() {
         updateBoard();
         });
     connect(newGameButton, &QPushButton::clicked, this, [this] {
+        qint64 currentGameDuration = gameTimer->elapsed();
+        gameDurations.push_back(currentGameDuration); // Save the duration of the current game
+        gameTimer->restart(); // Restart the timer for the new game
+
         scores.push_back(score); // Save the current score
         score = 0; // Reset the score for the new game
         scoreLabel->setText("Score: " + QString::number(score)); // Update the score label
+
         sudokuBoard->regenerateBoard(); // Create a new game
         updateBoard();
     });
@@ -292,16 +298,18 @@ void Window::updateBoard() {
 void Window::showLogbook() {
     QString logbookContent;
     for(int i = 0; i < scores.size(); ++i) {
-        logbookContent += "Game " + QString::number(i + 1) + ": " + QString::number(scores[i]) + "\n";
+        qint64 durationSeconds = gameDurations[i] / 1000; // Convert milliseconds to seconds
+        logbookContent += "Game " + QString::number(i + 1) + ": Score: " + QString::number(scores[i]) +
+                          ", Time: " + QString::number(durationSeconds) + " seconds\n";
     }
 
-    // Check if logbookContent is empty
     if(logbookContent.isEmpty()) {
         logbookContent = "No games completed yet.";
     }
 
     QMessageBox::information(this, "Logbook", logbookContent);
 }
+
 
 void Window::onDifficultyChanged(int newDifficulty) {
     // Delete the existing board if necessary
