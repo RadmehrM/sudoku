@@ -6,6 +6,7 @@
 #include <QTimer>
 #include <QMessageBox>
 #include <iostream>
+#include "hints.h"
 
 using namespace std;
 
@@ -73,6 +74,9 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores() {
     QPushButton *fillGridButton = new QPushButton("Fill Grid");
     QPushButton *newGameButton = new QPushButton("New Game");
     QPushButton *viewLogbookButton = new QPushButton("View Logbook");
+    HintsWindow *hints = new HintsWindow();
+
+    
 
     scoreLabel = new QLabel("Score: 0", this); // Initialize the QLabel with 'this' as the parent
     scoreLabel->setAlignment(Qt::AlignCenter);
@@ -99,15 +103,19 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores() {
     buttonLayout->addWidget(fillGridButton);
     buttonLayout->addWidget(newGameButton);
     buttonLayout->addWidget(viewLogbookButton);
+    buttonLayout->addWidget(hints, 0, Qt::AlignRight | Qt::AlignTop);
     buttonLayout->addStretch(); // Push buttons to the top
 
     fillGridButton->setStyleSheet("color: black;");
     newGameButton->setStyleSheet("color: black;");
     viewLogbookButton->setStyleSheet("color: black;");
+    
 
     // Add the button layout to the main layout
     mainLayout->addLayout(buttonLayout);
     mainLayout->addWidget(scoreLabel, 0, Qt::AlignRight | Qt::AlignTop);
+
+    
 
     // Set the main layout as the layout for the central widget
     centralWidget->setLayout(mainLayout);
@@ -116,7 +124,7 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores() {
     centralWidget->setStyleSheet("border: 2px solid black;");
 
 
-
+    
     
     stackedWidget = new QStackedWidget(this);
     Menu *menu = new Menu(stackedWidget);
