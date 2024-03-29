@@ -25,6 +25,7 @@ class Window : public QMainWindow {
 public:
   explicit Window(QWidget *parent = nullptr);
   QStackedWidget *stackedWidget;
+  bool GameWon=false;
 
 
 public slots:
@@ -37,13 +38,14 @@ private slots:
   void validateInput();
   void updateBoard();
   void updateTimerDisplay();
+  void updateCellBorder();
+  bool isGridFull();
+
 
 private:
   int score; // Holds the current score
   QVector<int> scores; // Vector to hold scores of completed games
   
-  QLabel *timerLabel; // Label to display the timer
-  QTimer *updateTimer; // Timer to trigger the display update
   QElapsedTimer *gameTimer;
   QVector<qint64> gameDurations; 
 
@@ -55,9 +57,13 @@ private:
   QPushButton *viewLogbookButton;
   QWidget *centralWidget;
   HintsWindow *hintsWindow;
+  QLineEdit *lineEdit;
+  QLabel *timerLabel; // Label to display the timer
+  QTimer *updateTimer; // Timer to trigger the display update
   
   void checkConflict(int row, int col, int value, QLineEdit* sender, QVector<QLineEdit*>& conflictCells);
   void createButtons();
+  void showWinningAnimation();
   void createLayout();
   void showLogbook(); 
   void incrementScore(int value); // Helper function to increment the score
