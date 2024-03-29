@@ -389,7 +389,7 @@ void Window::onDifficultyChanged(int newDifficulty) {
     }
 
     // Reinitialize the board based on the new difficulty
-    if (newDifficulty == 0) sudokuBoard = new Board(9, 1);
+    if (newDifficulty == 0) sudokuBoard = new Board(9, 10);
     else if (newDifficulty == 1) sudokuBoard = new Board(9, 20);
     else if (newDifficulty == 2) sudokuBoard = new Board(9, 40);
 
