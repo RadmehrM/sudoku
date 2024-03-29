@@ -8,6 +8,7 @@
 #include <QLineEdit>
 #include <QVector>
 #include <QLabel>
+#include <QTimer>
 #include <QElapsedTimer>
 #include "board.h"
 #include "menu.h"
@@ -36,6 +37,7 @@ private slots:
   void setLineEditValue(int N, int M, const QString &value);
   void validateInput();
   void updateBoard();
+  void updateTimerDisplay();
   void updateCellBorder();
   bool isGridFull();
 
@@ -56,6 +58,8 @@ private:
   QWidget *centralWidget;
   HintsWindow *hintsWindow;
   QLineEdit *lineEdit;
+  QLabel *timerLabel; // Label to display the timer
+  QTimer *updateTimer; // Timer to trigger the display update
   
   void checkConflict(int row, int col, int value, QLineEdit* sender, QVector<QLineEdit*>& conflictCells);
   void createButtons();

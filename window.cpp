@@ -85,6 +85,17 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores(), gameD
     // Add the grid layout to the main layout
     mainLayout->addLayout(gridlayout);
 
+
+    // Timer label for the UI
+    timerLabel = new QLabel("Time: 0 sec", this);
+    timerLabel->setAlignment(Qt::AlignCenter);
+    timerLabel->setStyleSheet("QLabel { color : black; background-color:white; }");
+    timerLabel->setFixedSize(145, 45); // Adjust size as needed
+
+    updateTimer = new QTimer(this); // Create the update timer
+    connect(updateTimer, &QTimer::timeout, this, &Window::updateTimerDisplay);
+    updateTimer->start(1000); // Update the timer display every second
+
     // Set up game timer
     gameTimer = new QElapsedTimer();
     gameTimer->start();
@@ -139,6 +150,7 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores(), gameD
     connect(hint, &QPushButton::clicked, hintsWindow, &HintsWindow::showHint);
     
 
+    buttonLayout->addWidget(timerLabel);
     buttonLayout->addWidget(fillGridButton);
     buttonLayout->addWidget(newGameButton);
     buttonLayout->addWidget(viewLogbookButton);
@@ -389,8 +401,14 @@ void Window::onDifficultyChanged(int newDifficulty) {
 }
 
 void Window::beginGame() {
+    gameTimer->restart();
     stackedWidget->setCurrentWidget(centralWidget);
 
+}
+
+void Window::updateTimerDisplay() {
+    qint64 timeElapsed = gameTimer->elapsed() / 1000; // Get the elapsed time in seconds
+    timerLabel->setText("Time: " + QString::number(timeElapsed) + "sec");
 }
 
 

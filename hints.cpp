@@ -10,7 +10,7 @@ HintsWindow::HintsWindow(QWidget *parent) : QWidget(parent) {
     textEdit->setReadOnly(true);
 
     QFont font = textEdit->font();  // Get the current font
-    font.setPointSize(14);  // Set the font size to 12 points
+    font.setPointSize(14); 
     
 
     textEdit->setFont(font);  // Apply the font to the textEdit widget
