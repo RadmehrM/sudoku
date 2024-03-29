@@ -25,6 +25,7 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores() {
     setCentralWidget(centralWidget);
     QHBoxLayout *mainLayout = new QHBoxLayout(centralWidget); // Main layout is horizontal
     QVBoxLayout *optionsLayout = new QVBoxLayout();
+    QHBoxLayout *boxesOnlyLayout = new QHBoxLayout();
 
     // Create the grid layout for the Sudoku board
     gridlayout = new QGridLayout();
@@ -122,19 +123,24 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores() {
     //buttonLayout->addWidget(hintsWindow);
     buttonLayout->addStretch(); // Push buttons to the top
 
-    fillGridButton->setStyleSheet("color: black;");
-    newGameButton->setStyleSheet("color: black;");
-    viewLogbookButton->setStyleSheet("color: black;");
+    fillGridButton->setStyleSheet("QPushButton { color: white; background-color: green; border: 2px solid black; }");
+    newGameButton->setStyleSheet("QPushButton { color: white; background-color: blue; border: 2px solid black; }");
+    viewLogbookButton->setStyleSheet("QPushButton { color: white; background-color: red; border: 2px solid black; }");
+    hint->setStyleSheet("QPushButton { color: white; background-color: orange; border: 2px solid black; }");
+
+    
     
 
 
 
 
     // Add the button layout to the main layout
-    optionsLayout->addLayout(buttonLayout);
+    boxesOnlyLayout->addLayout(buttonLayout);
+    boxesOnlyLayout->addWidget(scoreLabel, 0, Qt::AlignRight | Qt::AlignTop);
+    optionsLayout->addLayout(boxesOnlyLayout);
     optionsLayout->addWidget(hintsWindow);
     mainLayout->addLayout(optionsLayout);
-    mainLayout->addWidget(scoreLabel, 0, Qt::AlignRight | Qt::AlignTop);
+    
 
 
     
