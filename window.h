@@ -54,6 +54,7 @@ private:
   
   void checkConflict(int row, int col, int value, QLineEdit* sender, QVector<QLineEdit*>& conflictCells);
   void createButtons();
+  void showWinningAnimation();
   void createLayout();
   void showLogbook(); 
   void incrementScore(int value); // Helper function to increment the score

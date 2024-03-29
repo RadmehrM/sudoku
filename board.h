@@ -41,6 +41,14 @@ public:
 
     bool CheckIfSafe(int i, int j, int num);
 
+    bool isGameComplete();
+
+    bool isRowComplete(int row);
+
+    bool isColumnComplete(int col);
+
+    bool isSubgridComplete(int startRow, int startCol);
+
     void remove_missing_digs();
 
     void printSudoku();

@@ -1,4 +1,4 @@
-QT += core widgets
+QT += core gui widgets
 
 TARGET = sudoku
 TEMPLATE = app

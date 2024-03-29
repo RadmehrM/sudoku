@@ -1,4 +1,5 @@
 #include "board.h"
+#include <vector>
 
 using namespace std;
 
@@ -305,6 +306,61 @@ bool Board::findUnassignedLocation(int &row, int &col) {
             if (board[row][col] == 0)
                 return true;
     return false;
+}
+
+bool Board::isGameComplete() {
+    std::cout << "Checking if game is complete..." << std::endl;
+    for (int i = 0; i < N; i++) {
+        if (!isRowComplete(i) || !isColumnComplete(i)) {
+            return false;
+        }
+    }
+    for (int row = 0; row < N; row += num_of_rows) {
+        for (int col = 0; col < N; col += num_of_rows) {
+            if (!isSubgridComplete(row, col)) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+bool Board::isRowComplete(int row) {
+    std::vector<bool> seen(N + 1, false);
+    for (int col = 0; col < N; col++) {
+        int num = board[row][col];
+        if (num == 0 || seen[num]) {
+            return false;
+        }
+        seen[num] = true;
+    }
+    return true;
+}
+
+bool Board::isColumnComplete(int col) {
+    std::vector<bool> seen(N + 1, false);
+    for (int row = 0; row < N; row++) {
+        int num = board[row][col];
+        if (num == 0 || seen[num]) {
+            return false;
+        }
+        seen[num] = true;
+    }
+    return true;
+}
+
+bool Board::isSubgridComplete(int startRow, int startCol) {
+    std::vector<bool> seen(N + 1, false);
+    for (int row = 0; row < num_of_rows; row++) {
+        for (int col = 0; col < num_of_rows; col++) {
+            int num = board[startRow + row][startCol + col];
+            if (num == 0 || seen[num]) {
+                return false;
+            }
+            seen[num] = true;
+        }
+    }
+    return true;
 }
 
 /**

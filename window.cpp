@@ -9,6 +9,14 @@
 #include "hints.h"
 #include <QPalette>
 
+// Winning Animation Imports //
+#include <QWidget>
+#include <QLabel>
+#include <QGraphicsOpacityEffect>
+#include <QPropertyAnimation>
+#include <QTimer>
+#include <QFont>
+
 using namespace std;
 
 /**
@@ -286,6 +294,16 @@ void Window::validateInput() {
         senderLineEdit->setReadOnly(true);
         incrementScore(100);
         }
+
+        // After each valid move, check if the game is complete
+        if (sudokuBoard->isGameComplete()) {
+            std::cout << "Game complete, showing animation." << std::endl;
+            // Trigger the winning animation
+            showWinningAnimation();
+        }
+        else {
+            std::cout << "Game not complete, continue playing." << std::endl;
+        }
     }
 
 /**
@@ -371,8 +389,63 @@ void Window::beginGame() {
 
 }
 
+void Window::showWinningAnimation() {
+    // Create an overlay widget that will cover the entire window
+    QWidget *overlayWidget = new QWidget(this);
+    overlayWidget->setStyleSheet("background-color: rgba(255, 255, 255, 170);"); // semi-transparent white overlay
+    overlayWidget->setGeometry(this->rect()); // Cover the entire window
+
+    // Create a label for the congratulations message
+    QLabel *congratsLabel = new QLabel("Congratulations! You've won!", overlayWidget);
+    congratsLabel->setAlignment(Qt::AlignCenter);
+    congratsLabel->setFont(QFont("Helvetica", 24, QFont::Bold));
+    congratsLabel->setStyleSheet("color: #000000;");
+    congratsLabel->setGeometry(overlayWidget->rect()); // Cover the overlay widget
+
+    // Create an opacity effect for the fade-in
+    QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect(overlayWidget);
+    overlayWidget->setGraphicsEffect(effect);
+    overlayWidget->show();
+
+    // Create an animation for the fade-in effect
+    QPropertyAnimation *animation = new QPropertyAnimation(effect, "opacity");
+    animation->setDuration(1000); // 1 second duration
+    animation->setStartValue(0);
+    animation->setEndValue(1);
+    animation->setEasingCurve(QEasingCurve::OutCubic);
+    animation->start(QPropertyAnimation::DeleteWhenStopped);
+
+    QTimer::singleShot(5000, overlayWidget, &QWidget::deleteLater);
+
+    // Create buttons for 'Exit' and 'Play Again'
+    QPushButton *exitButton = new QPushButton("Exit", overlayWidget);
+    QPushButton *playAgainButton = new QPushButton("Play Again", overlayWidget);
+
+    // Set properties for 'Exit' button
+    exitButton->setFont(QFont("Helvetica", 16, QFont::Bold));
+    exitButton->setStyleSheet("QPushButton { color: white; background-color: red; }");
+    exitButton->setGeometry(QRect(this->width()/2 - 100, this->height()/2 + 100, 200, 50));  // Adjust as necessary
+
+    // Set properties for 'Play Again' button
+    playAgainButton->setFont(QFont("Helvetica", 16, QFont::Bold));
+    playAgainButton->setStyleSheet("QPushButton { color: white; background-color: green; }");
+    playAgainButton->setGeometry(QRect(this->width()/2 - 100, this->height()/2 + 160, 200, 50));  // Adjust as necessary
+
+    // Connect buttons to their slots
+    connect(exitButton, &QPushButton::clicked, []() {
+        QApplication::exit();
+    });
+    connect(playAgainButton, &QPushButton::clicked, [this, overlayWidget]() {
+        overlayWidget->deleteLater();
+    });
+
+    // Ensure buttons are on top of the overlay and visible
+    exitButton->raise();
+    playAgainButton->raise();
+    exitButton->show();
+    playAgainButton->show();
+}
 
 // void Window::pauseGame() {
 //     stackedWidget->setCurrentWidget(menu);
 // }
-
