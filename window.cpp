@@ -6,6 +6,8 @@
 #include <QTimer>
 #include <QMessageBox>
 #include <iostream>
+#include "hints.h"
+#include <QPalette>
 
 using namespace std;
 
@@ -22,6 +24,8 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores(), gameD
     centralWidget = new QWidget(this);
     setCentralWidget(centralWidget);
     QHBoxLayout *mainLayout = new QHBoxLayout(centralWidget); // Main layout is horizontal
+    QVBoxLayout *optionsLayout = new QVBoxLayout();
+    QHBoxLayout *boxesOnlyLayout = new QHBoxLayout();
 
     // Create the grid layout for the Sudoku board
     gridlayout = new QGridLayout();
@@ -69,15 +73,29 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores(), gameD
     gameTimer = new QElapsedTimer();
     gameTimer->start();
 
+    //Set Up Hints:
+    hintsWindow = new HintsWindow(this); // Initialize the hints window
+    hintsWindow->setStyleSheet("background-color: transparent; border: solid 1px black");
+
+
     // Create buttons and add them to a vertical layout
     QVBoxLayout *buttonLayout = new QVBoxLayout();
     QPushButton *fillGridButton = new QPushButton("Fill Grid");
     QPushButton *newGameButton = new QPushButton("New Game");
     QPushButton *viewLogbookButton = new QPushButton("View Logbook");
+    QPushButton *hint = new QPushButton("Hint");
+    
+    // hints->resize(200, hints->height());
+    fillGridButton->setFixedSize(145,45);
+    newGameButton->setFixedSize(145,45);
+    viewLogbookButton->setFixedSize(145,45);
+    hint->setFixedSize(145,45);
+    
 
     scoreLabel = new QLabel("Score: 0", this); // Initialize the QLabel with 'this' as the parent
     scoreLabel->setAlignment(Qt::AlignCenter);
     scoreLabel->setStyleSheet("QLabel { background-color : transparent; color : black; }");
+    scoreLabel->setFixedSize(145,45);
     
     // Connect buttons to their respective slots
     connect(fillGridButton, &QPushButton::clicked, this, [this] { 
@@ -100,20 +118,38 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores(), gameD
         showLogbook();
         updateBoard();
     });
+
+    connect(hint, &QPushButton::clicked, hintsWindow, &HintsWindow::showHint);
     
 
     buttonLayout->addWidget(fillGridButton);
     buttonLayout->addWidget(newGameButton);
     buttonLayout->addWidget(viewLogbookButton);
+    buttonLayout->addWidget(hint);
+    //buttonLayout->addWidget(hintsWindow);
     buttonLayout->addStretch(); // Push buttons to the top
 
-    fillGridButton->setStyleSheet("color: black;");
-    newGameButton->setStyleSheet("color: black;");
-    viewLogbookButton->setStyleSheet("color: black;");
+    fillGridButton->setStyleSheet("QPushButton { color: white; background-color: green; border: 2px solid black; }");
+    newGameButton->setStyleSheet("QPushButton { color: white; background-color: blue; border: 2px solid black; }");
+    viewLogbookButton->setStyleSheet("QPushButton { color: white; background-color: red; border: 2px solid black; }");
+    hint->setStyleSheet("QPushButton { color: white; background-color: orange; border: 2px solid black; }");
+
+    
+    
+
+
+
 
     // Add the button layout to the main layout
-    mainLayout->addLayout(buttonLayout);
-    mainLayout->addWidget(scoreLabel, 0, Qt::AlignRight | Qt::AlignTop);
+    boxesOnlyLayout->addLayout(buttonLayout);
+    boxesOnlyLayout->addWidget(scoreLabel, 0, Qt::AlignRight | Qt::AlignTop);
+    optionsLayout->addLayout(boxesOnlyLayout);
+    optionsLayout->addWidget(hintsWindow);
+    mainLayout->addLayout(optionsLayout);
+    
+
+
+    
 
     // Set the main layout as the layout for the central widget
     centralWidget->setLayout(mainLayout);
@@ -122,7 +158,7 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores(), gameD
     centralWidget->setStyleSheet("border: 2px solid black;");
 
 
-
+    
     
     stackedWidget = new QStackedWidget(this);
     Menu *menu = new Menu(stackedWidget);
