@@ -69,6 +69,16 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores(), gameD
     // Add the grid layout to the main layout
     mainLayout->addLayout(gridlayout);
 
+    // Timer label for the UI
+    timerLabel = new QLabel("Time: 0 sec", this);
+    timerLabel->setAlignment(Qt::AlignCenter);
+    timerLabel->setStyleSheet("QLabel { color : white; }");
+    timerLabel->setFixedSize(200, 50); // Adjust size as needed
+
+    updateTimer = new QTimer(this); // Create the update timer
+    connect(updateTimer, &QTimer::timeout, this, &Window::updateTimerDisplay);
+    updateTimer->start(1000); // Update the timer display every second
+
     // Set up game timer
     gameTimer = new QElapsedTimer();
     gameTimer->start();
@@ -122,6 +132,7 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores(), gameD
     connect(hint, &QPushButton::clicked, hintsWindow, &HintsWindow::showHint);
     
 
+    buttonLayout->addWidget(timerLabel);
     buttonLayout->addWidget(fillGridButton);
     buttonLayout->addWidget(newGameButton);
     buttonLayout->addWidget(viewLogbookButton);
@@ -134,22 +145,12 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores(), gameD
     viewLogbookButton->setStyleSheet("QPushButton { color: white; background-color: red; border: 2px solid black; }");
     hint->setStyleSheet("QPushButton { color: white; background-color: orange; border: 2px solid black; }");
 
-    
-    
-
-
-
-
     // Add the button layout to the main layout
     boxesOnlyLayout->addLayout(buttonLayout);
     boxesOnlyLayout->addWidget(scoreLabel, 0, Qt::AlignRight | Qt::AlignTop);
     optionsLayout->addLayout(boxesOnlyLayout);
     optionsLayout->addWidget(hintsWindow);
     mainLayout->addLayout(optionsLayout);
-    
-
-
-    
 
     // Set the main layout as the layout for the central widget
     centralWidget->setLayout(mainLayout);
@@ -367,8 +368,14 @@ void Window::onDifficultyChanged(int newDifficulty) {
 }
 
 void Window::beginGame() {
+    gameTimer->restart();
     stackedWidget->setCurrentWidget(centralWidget);
 
+}
+
+void Window::updateTimerDisplay() {
+    qint64 timeElapsed = gameTimer->elapsed() / 1000; // Get the elapsed time in seconds
+    timerLabel->setText("Time: " + QString::number(timeElapsed) + "sec");
 }
 
 

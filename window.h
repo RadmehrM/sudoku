@@ -8,6 +8,7 @@
 #include <QLineEdit>
 #include <QVector>
 #include <QLabel>
+#include <QTimer>
 #include <QElapsedTimer>
 #include "board.h"
 #include "menu.h"
@@ -35,11 +36,14 @@ private slots:
   void setLineEditValue(int N, int M, const QString &value);
   void validateInput();
   void updateBoard();
+  void updateTimerDisplay();
 
 private:
   int score; // Holds the current score
   QVector<int> scores; // Vector to hold scores of completed games
   
+  QLabel *timerLabel; // Label to display the timer
+  QTimer *updateTimer; // Timer to trigger the display update
   QElapsedTimer *gameTimer;
   QVector<qint64> gameDurations; 
 
