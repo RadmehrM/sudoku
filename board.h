@@ -18,8 +18,11 @@ private:
 public:
     int** userBoard;
     int** board;
+    bool GameIsCompleted = false;
+
     // Default constructor
     Board(int N, int missing_dig);
+    
 
     // Member function to reset the board
     void resetBoard();
@@ -62,6 +65,7 @@ public:
     bool findUnassignedLocation(int &row, int &col);
 
     int** getBoard();
+
 
 
 };

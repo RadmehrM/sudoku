@@ -9,6 +9,14 @@
 #include "hints.h"
 #include <QPalette>
 
+// Winning Animation Imports //
+#include <QWidget>
+#include <QLabel>
+#include <QGraphicsOpacityEffect>
+#include <QPropertyAnimation>
+#include <QTimer>
+#include <QFont>
+
 using namespace std;
 
 /**
@@ -32,7 +40,7 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores(), gameD
     gridlayout->setSpacing(0); // Adjust spacing as needed
 
     // Create the board instance
-    sudokuBoard = new Board(9, 20); // Board class must have a constructor
+    sudokuBoard = new Board(9, 10); // Board class must have a constructor
 
     // Fill the board and print sudoku before creating LineEdits
     sudokuBoard->fillBoard();
@@ -64,8 +72,11 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores(), gameD
 
             connect(lineEdit, &QLineEdit::textEdited, this, [this] {
                 validateInput();
+                sudokuBoard->printSudoku();
             }
             );
+
+
         }
     }
 
@@ -106,6 +117,7 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores(), gameD
     connect(fillGridButton, &QPushButton::clicked, this, [this] { 
         sudokuBoard->solveSudoku(); 
         updateBoard();
+        showWinningAnimation();
         });
     connect(newGameButton, &QPushButton::clicked, this, [this] {
         qint64 currentGameDuration = gameTimer->elapsed();
@@ -286,6 +298,16 @@ void Window::validateInput() {
         QTimer::singleShot(1000, this, [this]() {
         updateCellBorder(); // This function is called after a delay of 1000 milliseconds (1 second)
     });
+
+    // After each valid move, check if the game is complete
+        if (isGridFull()) {
+            std::cout << "Game complete, showing animation." << std::endl;
+            // Trigger the winning animation
+            showWinningAnimation();
+        }
+        else {
+            std::cout << "Game not complete, continue playing." << std::endl;
+        }
     }
 
 /**
@@ -355,7 +377,7 @@ void Window::onDifficultyChanged(int newDifficulty) {
     }
 
     // Reinitialize the board based on the new difficulty
-    if (newDifficulty == 0) sudokuBoard = new Board(9, 10);
+    if (newDifficulty == 0) sudokuBoard = new Board(9, 1);
     else if (newDifficulty == 1) sudokuBoard = new Board(9, 20);
     else if (newDifficulty == 2) sudokuBoard = new Board(9, 40);
 
@@ -368,6 +390,77 @@ void Window::onDifficultyChanged(int newDifficulty) {
 
 void Window::beginGame() {
     stackedWidget->setCurrentWidget(centralWidget);
+
+}
+
+
+void Window::showWinningAnimation() {
+    // Create an overlay widget that will cover the entire window
+    QWidget *overlayWidget = new QWidget(this);
+    overlayWidget->setStyleSheet("background-color: rgba(255, 255, 255, 170);"); // semi-transparent white overlay
+    overlayWidget->setGeometry(this->rect()); // Cover the entire window
+
+    // Create a label for the congratulations message
+    QLabel *congratsLabel = new QLabel("Congratulations! You've won!", overlayWidget);
+    congratsLabel->setAlignment(Qt::AlignCenter);
+    congratsLabel->setFont(QFont("Helvetica", 24, QFont::Bold));
+    congratsLabel->setStyleSheet("color: #000000;");
+    congratsLabel->setGeometry(overlayWidget->rect()); // Cover the overlay widget
+
+    // Create an opacity effect for the fade-in
+    QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect(overlayWidget);
+    overlayWidget->setGraphicsEffect(effect);
+    overlayWidget->show();
+
+    // Create an animation for the fade-in effect
+    QPropertyAnimation *animation = new QPropertyAnimation(effect, "opacity");
+    animation->setDuration(1000); // 1 second duration
+    animation->setStartValue(0);
+    animation->setEndValue(1);
+    animation->setEasingCurve(QEasingCurve::OutCubic);
+    animation->start(QPropertyAnimation::DeleteWhenStopped);
+
+    //QTimer::singleShot(5000, overlayWidget, &QWidget::deleteLater);
+
+    // Create buttons for 'Exit' and 'Play Again'
+    QPushButton *exitButton = new QPushButton("Exit", overlayWidget);
+    QPushButton *playAgainButton = new QPushButton("Play Again", overlayWidget);
+
+    // Set properties for 'Exit' button
+    exitButton->setFont(QFont("Helvetica", 16, QFont::Bold));
+    exitButton->setStyleSheet("QPushButton { color: white; background-color: red; }");
+    exitButton->setGeometry(QRect(this->width()/2 - 100, this->height()/2 + 100, 200, 50));  // Adjust as necessary
+
+    // Set properties for 'Play Again' button
+    playAgainButton->setFont(QFont("Helvetica", 16, QFont::Bold));
+    playAgainButton->setStyleSheet("QPushButton { color: white; background-color: green; }");
+    playAgainButton->setGeometry(QRect(this->width()/2 - 100, this->height()/2 + 160, 200, 50));  // Adjust as necessary
+
+    // Connect buttons to their slots
+    connect(exitButton, &QPushButton::clicked, []() {
+        QApplication::exit();
+    });
+    connect(playAgainButton, &QPushButton::clicked, [this, overlayWidget]() {
+        overlayWidget->deleteLater();
+        qint64 currentGameDuration = gameTimer->elapsed();
+        gameDurations.push_back(currentGameDuration); // Save the duration of the current game
+        gameTimer->restart(); // Restart the timer for the new game
+
+        scores.push_back(score); // Save the current score
+        score = 0; // Reset the score for the new game
+        scoreLabel->setText("Score: " + QString::number(score)); // Update the score label
+
+        sudokuBoard->regenerateBoard(); // Create a new game
+        updateBoard();
+
+
+    });
+
+    // Ensure buttons are on top of the overlay and visible
+    exitButton->raise();
+    playAgainButton->raise();
+    exitButton->show();
+    playAgainButton->show();
 
 }
 
@@ -395,6 +488,26 @@ void Window::updateCellBorder() {
     }
 }
 
+bool Window::isGridFull() {
+    GameWon = true;
+    for (int row = 0; row < 9; ++row) {
+        for (int col = 0; col < 9; ++col) {
+            QLayoutItem *item = gridlayout->itemAtPosition(row, col);
+            if (item) {
+                QLineEdit *lineEdit = qobject_cast<QLineEdit*>(item->widget());
+                if (lineEdit) {
+                    // Check if the cell is empty or contains an invalid number
+                    bool ok;
+                    int value = lineEdit->text().toInt(&ok);
+                    if (!ok || value < 1 || value > 9) {
+                        GameWon = false; // Found an empty or invalid cell
+                    }
+                }
+            }
+        }
+    }
+    return GameWon; // All cells are full with valid numbers
+}
 
 
 

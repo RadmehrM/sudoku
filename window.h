@@ -24,6 +24,7 @@ class Window : public QMainWindow {
 public:
   explicit Window(QWidget *parent = nullptr);
   QStackedWidget *stackedWidget;
+  bool GameWon=false;
 
 
 public slots:
@@ -36,6 +37,7 @@ private slots:
   void validateInput();
   void updateBoard();
   void updateCellBorder();
+  bool isGridFull();
 
 
 private:

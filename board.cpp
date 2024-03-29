@@ -310,19 +310,23 @@ bool Board::findUnassignedLocation(int &row, int &col) {
 
 bool Board::isGameComplete() {
     std::cout << "Checking if game is complete..." << std::endl;
+    GameIsCompleted=true;
+
     for (int i = 0; i < N; i++) {
         if (!isRowComplete(i) || !isColumnComplete(i)) {
-            return false;
+            GameIsCompleted = false;
         }
     }
     for (int row = 0; row < N; row += num_of_rows) {
         for (int col = 0; col < N; col += num_of_rows) {
             if (!isSubgridComplete(row, col)) {
-                return false;
+                GameIsCompleted = false;
             }
         }
     }
-    return true;
+
+    return GameIsCompleted;
+;
 }
 
 bool Board::isRowComplete(int row) {
