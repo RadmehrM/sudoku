@@ -35,6 +35,8 @@ private slots:
   void setLineEditValue(int N, int M, const QString &value);
   void validateInput();
   void updateBoard();
+  void updateCellBorder();
+
 
 private:
   int score; // Holds the current score
@@ -51,6 +53,7 @@ private:
   QPushButton *viewLogbookButton;
   QWidget *centralWidget;
   HintsWindow *hintsWindow;
+  QLineEdit *lineEdit;
   
   void checkConflict(int row, int col, int value, QLineEdit* sender, QVector<QLineEdit*>& conflictCells);
   void createButtons();
