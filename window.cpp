@@ -153,7 +153,7 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores(), gameD
         qint64 currentGameDuration = gameTimer->elapsed();
         gameDurations.push_back(currentGameDuration); // Save the duration of the current game
         gameTimer->restart(); // Restart the timer for the new game
-
+        gameDifficulties.push_back(currentDifficultyIndex);
         scores.push_back(score); // Save the current score
         score = 0; // Reset the score for the new game
         scoreLabel->setText("Score: " + QString::number(score)); // Update the score label
@@ -456,7 +456,8 @@ void Window::showLogbook() {
     for(int i = 0; i < scores.size(); ++i) {
         qint64 durationSeconds = gameDurations[i] / 1000; // Convert milliseconds to seconds
         logbookContent += "Game " + QString::number(i + 1) + ": Score: " + QString::number(scores[i]) +
-                          ", Time: " + QString::number(durationSeconds) + " seconds\n";
+                          ", Time: " + QString::number(durationSeconds) + " seconds" +
+                          ", Difficulty: " + QString::fromStdString(difficulties[gameDifficulties[i]]) + "\n";
     }
 
     if(logbookContent.isEmpty()) {
@@ -468,6 +469,9 @@ void Window::showLogbook() {
 
 void Window::changeDifficulty() {
     currentDifficultyIndex = (currentDifficultyIndex + 1) % difficulties.size();
+    gameTimer->restart();
+    score = 0;
+    scoreLabel->setText("Score: " + QString::number(score));
     difficultyButton.setText("Difficulty: " + QString::fromStdString(difficulties[currentDifficultyIndex]));
     Window::onDifficultyChanged(currentDifficultyIndex);
 }
@@ -576,7 +580,7 @@ void Window::showWinningAnimation() {
         qint64 currentGameDuration = gameTimer->elapsed();
         gameDurations.push_back(currentGameDuration); // Save the duration of the current game
         gameTimer->restart(); // Restart the timer for the new game
-
+        gameDifficulties.push_back(currentDifficultyIndex);
         scores.push_back(score); // Save the current score
         score = 0; // Reset the score for the new game
         scoreLabel->setText("Score: " + QString::number(score)); // Update the score label

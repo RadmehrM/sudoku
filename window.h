@@ -1,3 +1,4 @@
+
 #ifndef WINDOW_H
 #define WINDOW_H
 
@@ -55,6 +56,7 @@ private:
   
   QElapsedTimer *gameTimer;
   QVector<qint64> gameDurations; 
+  QVector<int> gameDifficulties; 
 
   QGridLayout *gridlayout;
   QPushButton *fillGridButton;  // Button to fill the grid with a solved puzzle
@@ -71,6 +73,7 @@ private:
   QLabel *timerLabel; // Label to display the timer
   QTimer *updateTimer; // Timer to trigger the display update
   bool pencilModeOn;
+  int difficulty; 
   
   void checkConflict(int row, int col, int value, QLineEdit* sender, QVector<QLineEdit*>& conflictCells);
   void createButtons();
