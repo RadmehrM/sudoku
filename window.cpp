@@ -7,6 +7,7 @@
 #include <QTimer>
 #include <QMessageBox>
 #include <iostream>
+#include <algorithm>
 #include "hints.h"
 #include <QPalette>
 #include <QStringList>
@@ -655,7 +656,7 @@ void Window::setLineEditSize(int size) {
     for(int row = 0; row < 9; row++) {
         for(int col = 0; col < 9; col++) {
             QLineEdit *lineEdit = qobject_cast<QLineEdit*>(gridlayout->itemAtPosition(row, col)->widget());
-            lineEdit->setMaxLength(std::max(lineEdit->text().length() + 1, size)); 
+            lineEdit->setMaxLength(std::max(static_cast<int>(lineEdit->text().length()) + 1, static_cast<int>(size)));
             lineEdit->setValidator(new QIntValidator(1, maxValue, this));
         }
     }
