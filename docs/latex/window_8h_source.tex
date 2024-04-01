@@ -1,0 +1,93 @@
+\doxysection{window.\+h}
+\hypertarget{window_8h_source}{}\label{window_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ WINDOW\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ WINDOW\_H}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <QMainWindow>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <QPushButton>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <QStackedWidget>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <QGridLayout>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <QLineEdit>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <QVector>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <QLabel>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <QTimer>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <QElapsedTimer>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}board.h"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}menu.h"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}hints.h"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <QStringList>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <QSet>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <QString>}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_window}{Window}}\ :\ \textcolor{keyword}{public}\ QMainWindow\ \{}
+\DoxyCodeLine{00023\ \ \ Q\_OBJECT}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00026\ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_window_a8c86e48ef3180201cc97cb928abd66ca}{Window}}(QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00027\ \ \ QStackedWidget\ *stackedWidget;}
+\DoxyCodeLine{00028\ \ \ \textcolor{keywordtype}{bool}\ GameWon=\textcolor{keyword}{false};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{public}\ slots:}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_window_af0b85b108626af8dda987a5b6caf3bff}{onDifficultyChanged}}(\textcolor{keywordtype}{int}\ newDifficulty);}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_window_ae9b271b5bf53cc7f46d2beba2bdd3f85}{beginGame}}();}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{private}\ slots:}
+\DoxyCodeLine{00037\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_window_af0a144095fc32bef82126fcb9926ec6c}{setLineEditValue}}(\textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{int}\ M,\ \textcolor{keyword}{const}\ QString\ \&value);}
+\DoxyCodeLine{00038\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_window_a06c6decd41962d0707cf96fcf44c6d60}{validateInput}}();}
+\DoxyCodeLine{00039\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_window_acc4996be5dda1782ccd261d74288ac82}{updateBoard}}();}
+\DoxyCodeLine{00040\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_window_ade440311b2dbe29208baac0a78c970dd}{updateTimerDisplay}}();}
+\DoxyCodeLine{00041\ \ \ \textcolor{keywordtype}{void}\ updateCellBorder();}
+\DoxyCodeLine{00042\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_window_ac0b82919ef048cb72a4420c183d12096}{isGridFull}}();}
+\DoxyCodeLine{00043\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_window_a3bfa89737fb6744e305eb06ef4845c4b}{togglePencilMode}}();}
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_window_aedd5349cd10831e9e20fcfd1c0aba8a9}{setLineEditSize}}(\textcolor{keywordtype}{int}\ size);\ }
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00048\ \ \ \textcolor{keywordtype}{int}\ currentDifficultyIndex\ =\ 0;\ }
+\DoxyCodeLine{00049\ \ \ \textcolor{keyword}{const}\ std::vector<std::string>\ difficulties\ =\ \{\textcolor{stringliteral}{"{}Easy"{}},\ \textcolor{stringliteral}{"{}Medium"{}},\ \textcolor{stringliteral}{"{}Hard"{}}\};}
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordtype}{int}\ score;\ \textcolor{comment}{//\ Holds\ the\ current\ score}}
+\DoxyCodeLine{00051\ \ \ QVector<int>\ scores;\ \textcolor{comment}{//\ Vector\ to\ hold\ scores\ of\ completed\ games}}
+\DoxyCodeLine{00052\ \ \ }
+\DoxyCodeLine{00053\ \ \ QElapsedTimer\ *gameTimer;}
+\DoxyCodeLine{00054\ \ \ QVector<qint64>\ gameDurations;\ }
+\DoxyCodeLine{00055\ \ \ QVector<int>\ gameDifficulties;\ }
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ QGridLayout\ *gridlayout;}
+\DoxyCodeLine{00058\ \ \ QPushButton\ *fillGridButton;\ \ \textcolor{comment}{//\ Button\ to\ fill\ the\ grid\ with\ a\ solved\ puzzle}}
+\DoxyCodeLine{00059\ \ \ QPushButton\ *newGameButton;\ \ \ \textcolor{comment}{//\ Button\ to\ generate\ a\ new\ puzzle}}
+\DoxyCodeLine{00060\ \ \ QPushButton\ difficultyButton;\ }
+\DoxyCodeLine{00061\ \ \ QPushButton\ pencilModeButton;}
+\DoxyCodeLine{00062\ \ \ \mbox{\hyperlink{class_board}{Board}}\ *sudokuBoard;\ }
+\DoxyCodeLine{00063\ \ \ QLabel\ *scoreLabel;}
+\DoxyCodeLine{00064\ \ \ QPushButton\ *viewLogbookButton;}
+\DoxyCodeLine{00065\ \ \ QWidget\ *centralWidget;}
+\DoxyCodeLine{00066\ \ \ \mbox{\hyperlink{class_hints}{Hints}}\ *hintsWindow;}
+\DoxyCodeLine{00067\ \ \ QLineEdit\ *lineEdit;}
+\DoxyCodeLine{00068\ \ \ QTextEdit\ *textEdit;\ }
+\DoxyCodeLine{00069\ \ \ QLabel\ *timerLabel;\ \textcolor{comment}{//\ Label\ to\ display\ the\ timer}}
+\DoxyCodeLine{00070\ \ \ QTimer\ *updateTimer;\ \textcolor{comment}{//\ Timer\ to\ trigger\ the\ display\ update}}
+\DoxyCodeLine{00071\ \ \ \textcolor{keywordtype}{bool}\ pencilModeOn;}
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordtype}{int}\ difficulty;\ }
+\DoxyCodeLine{00073\ \ \ }
+\DoxyCodeLine{00074\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_window_adeeca17003e0352b93ccb3244ab922c6}{checkConflict}}(\textcolor{keywordtype}{int}\ row,\ \textcolor{keywordtype}{int}\ col,\ \textcolor{keywordtype}{int}\ value,\ QLineEdit*\ sender,\ QVector<QLineEdit*>\&\ conflictCells);}
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordtype}{void}\ createButtons();}
+\DoxyCodeLine{00076\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_window_a4e7851e7a3f3b13daa5499cafd4578ca}{showWinningAnimation}}();}
+\DoxyCodeLine{00077\ \ \ \textcolor{keywordtype}{void}\ createLayout();}
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_window_a570ec36c828de23a4c6cd525434211a5}{showLogbook}}();\ }
+\DoxyCodeLine{00079\ \ \ \textcolor{keywordtype}{void}\ incrementScore(\textcolor{keywordtype}{int}\ value);\ \textcolor{comment}{//\ Helper\ function\ to\ increment\ the\ score}}
+\DoxyCodeLine{00080\ \ \ \textcolor{keywordtype}{void}\ decrementScore(\textcolor{keywordtype}{int}\ value);\ }
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_window_a1897acc96e8234a601e82e1e594f3b2f}{updatePencilModeUI}}();}
+\DoxyCodeLine{00082\ \ \ std::string\ \mbox{\hyperlink{class_window_a07046eb6dc397a976d85ffb1dbb9f2ca}{cleanPencilInput}}(std::string\ inputData);}
+\DoxyCodeLine{00083\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_window_a3ae81cf90a68ae65530b43a2c51f39ea}{lastDigitPresent}}(std::string\ inputData);\ }
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_window_a05edea2e039ba8bc790f8ab418b961ab}{changeDifficulty}}();}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \};}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ WINDOW\_H}}
+
+\end{DoxyCode}

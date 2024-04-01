@@ -1,0 +1,140 @@
+\doxysection{Menu Class Reference}
+\hypertarget{class_menu}{}\label{class_menu}\index{Menu@{Menu}}
+Inheritance diagram for Menu\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_menu}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_menu_ae986b26bb8a3315cbc31c49cc8ef66c7}\label{class_menu_ae986b26bb8a3315cbc31c49cc8ef66c7} 
+void {\bfseries difficulty\+Changed} (int new\+Difficulty)
+\item 
+\Hypertarget{class_menu_a801d03ff71dccf125528087627dc46dc}\label{class_menu_a801d03ff71dccf125528087627dc46dc} 
+void {\bfseries begin\+Game} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_menu_a81e517b62384dc184425757e6dba87d3}{Menu}} (QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em \doxylink{class_menu}{Menu} Class. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_menu_a73ad46717b2d1471d6f2285e7d1cd567}{get\+Difficulty}} ()
+\begin{DoxyCompactList}\small\item\em Retrieves the current difficulty setting. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_menu_a8be28f5400cf9616d7552c9accfc901d}{start\+Game}} ()
+\begin{DoxyCompactList}\small\item\em Starts the game. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_menu_a367e769af225418a8504940b04979c76}{change\+Difficulty}} ()
+\begin{DoxyCompactList}\small\item\em Changes the difficulty of the game. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_menu_ade755f2e7d8aca9d795f054504592eba}{exit}} ()
+\begin{DoxyCompactList}\small\item\em Exits the application. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_menu_a389b7026e528ccd6fee2f47250a81458}\label{class_menu_a389b7026e528ccd6fee2f47250a81458} 
+int {\bfseries current\+Difficulty\+Index} = 0
+\item 
+\Hypertarget{class_menu_ab0b44205a697f7aaf04c9457008a8973}\label{class_menu_ab0b44205a697f7aaf04c9457008a8973} 
+const std\+::vector$<$ std\+::string $>$ {\bfseries difficulties} = \{"{}Easy"{}, "{}Medium"{}, "{}Hard"{}\}
+\item 
+\Hypertarget{class_menu_a6e29fb144dbcd2880079c83972e41e67}\label{class_menu_a6e29fb144dbcd2880079c83972e41e67} 
+QPush\+Button \texorpdfstring{$\ast$}{*} {\bfseries button1}
+\item 
+\Hypertarget{class_menu_ab9e2c0f20282c2bc147212ba6d94410f}\label{class_menu_ab9e2c0f20282c2bc147212ba6d94410f} 
+QPush\+Button \texorpdfstring{$\ast$}{*} {\bfseries button2}
+\item 
+\Hypertarget{class_menu_a9ac5f9b6d58e85cf999ffe44ec13b186}\label{class_menu_a9ac5f9b6d58e85cf999ffe44ec13b186} 
+QPush\+Button \texorpdfstring{$\ast$}{*} {\bfseries button3}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_menu_a81e517b62384dc184425757e6dba87d3}\label{class_menu_a81e517b62384dc184425757e6dba87d3} 
+\index{Menu@{Menu}!Menu@{Menu}}
+\index{Menu@{Menu}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{Menu()}{Menu()}}
+{\footnotesize\ttfamily Menu\+::\+Menu (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+\doxylink{class_menu}{Menu} Class. 
+
+This class is used to create the main menu splash screen
+
+\begin{DoxyAuthor}{Author}
+Daniel Gomes 
+
+Zain Raza 
+
+Radmehr Mehdipour 
+
+Sreethan Vuppala 
+
+Aidan Freeman
+\end{DoxyAuthor}
+Constructs a \doxylink{class_menu}{Menu} widget.
+
+This constructor sets up the menu interface for the Sudoku game. It adds a title, start game button, difficulty selection button, and an exit button to the layout. The menu provides options to start the game, change difficulty, and exit the application.
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & The parent widget which owns this \doxylink{class_menu}{Menu} instance. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_menu_a367e769af225418a8504940b04979c76}\label{class_menu_a367e769af225418a8504940b04979c76} 
+\index{Menu@{Menu}!changeDifficulty@{changeDifficulty}}
+\index{changeDifficulty@{changeDifficulty}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{changeDifficulty}{changeDifficulty}}
+{\footnotesize\ttfamily void Menu\+::change\+Difficulty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+
+
+Changes the difficulty of the game. 
+
+This slot is triggered when the difficulty selection button is clicked. It cycles through the available difficulties and updates the button text. It emits the difficulty\+Changed signal to notify the main window about the change in difficulty. \Hypertarget{class_menu_ade755f2e7d8aca9d795f054504592eba}\label{class_menu_ade755f2e7d8aca9d795f054504592eba} 
+\index{Menu@{Menu}!exit@{exit}}
+\index{exit@{exit}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{exit}{exit}}
+{\footnotesize\ttfamily void Menu\+::exit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+
+
+Exits the application. 
+
+This slot is triggered when the \textquotesingle{}Exit\textquotesingle{} button is clicked. It terminates the application. \Hypertarget{class_menu_a73ad46717b2d1471d6f2285e7d1cd567}\label{class_menu_a73ad46717b2d1471d6f2285e7d1cd567} 
+\index{Menu@{Menu}!getDifficulty@{getDifficulty}}
+\index{getDifficulty@{getDifficulty}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{getDifficulty()}{getDifficulty()}}
+{\footnotesize\ttfamily int Menu\+::get\+Difficulty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Retrieves the current difficulty setting. 
+
+This function provides access to the current difficulty index.
+
+\begin{DoxyReturn}{Returns}
+The current difficulty index as an integer. 
+\end{DoxyReturn}
+\Hypertarget{class_menu_a8be28f5400cf9616d7552c9accfc901d}\label{class_menu_a8be28f5400cf9616d7552c9accfc901d} 
+\index{Menu@{Menu}!startGame@{startGame}}
+\index{startGame@{startGame}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{startGame}{startGame}}
+{\footnotesize\ttfamily void Menu\+::start\+Game (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+
+
+Starts the game. 
+
+This slot is triggered when the \textquotesingle{}Start Game\textquotesingle{} button is clicked. It hides the menu and emits the begin\+Game signal to notify the main window to start the game. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+menu.\+h\item 
+menu.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,415 @@
+\doxysection{Board Class Reference}
+\hypertarget{class_board}{}\label{class_board}\index{Board@{Board}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_board_afc377bbf7567df5be05827dea282f642}{Board}} (int N, int missing\+\_\+dig)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_board}{Board} object with the specified number of rows and missing digits. \end{DoxyCompactList}\item 
+\Hypertarget{class_board_a7cef7a9ca499d64c71cb170d67f76ad0}\label{class_board_a7cef7a9ca499d64c71cb170d67f76ad0} 
+void {\bfseries reset\+Board} ()
+\begin{DoxyCompactList}\small\item\em Resets the Sudoku board to its initial state. \end{DoxyCompactList}\item 
+\Hypertarget{class_board_ada048789b3d9e13aaa52f4b8d1a72b50}\label{class_board_ada048789b3d9e13aaa52f4b8d1a72b50} 
+void {\bfseries fill\+Board} ()
+\begin{DoxyCompactList}\small\item\em Fills the board with a valid Sudoku puzzle. \end{DoxyCompactList}\item 
+\Hypertarget{class_board_ad1402558fd5926cf3b012ddd1d23618f}\label{class_board_ad1402558fd5926cf3b012ddd1d23618f} 
+void {\bfseries fill\+Diagonal} ()
+\begin{DoxyCompactList}\small\item\em Fills the diagonal blocks of the board with random numbers. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_board_a1197f66952676582d07e8d2be21c5f30}{fill\+Box}} (int i, int j)
+\begin{DoxyCompactList}\small\item\em Fills a 3x3 box of the board with random numbers. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_board_a7eba5ca50b8c3612d1b291b33a817475}{fill\+Remaining}} (int i, int j)
+\begin{DoxyCompactList}\small\item\em Fills the remaining cells of the board recursively. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_board_a288131b8de8551aac1ed0cf52f584290}{un\+Used\+In\+Box}} (int i, int j, int num)
+\begin{DoxyCompactList}\small\item\em Checks if a specific number is used in a box. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_board_a2de749f3b7d51304b55f7f5a6a53d0e2}{un\+Used\+In\+Row}} (int i, int num)
+\begin{DoxyCompactList}\small\item\em Checks if a number is unused in the given row. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_board_a12f0cb26fed5a052ca3b6fb283e03723}{un\+Used\+In\+Col}} (int j, int num)
+\begin{DoxyCompactList}\small\item\em Checks if a number is unused in the given column. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_board_a47709133ce04416c8a4339216e26f07e}{Check\+If\+Safe}} (int i, int j, int num)
+\begin{DoxyCompactList}\small\item\em Checks if it\textquotesingle{}s safe to place a number in the given position. \end{DoxyCompactList}\item 
+\Hypertarget{class_board_a6d69798da3c4409861078df3261a5185}\label{class_board_a6d69798da3c4409861078df3261a5185} 
+void {\bfseries remove\+\_\+missing\+\_\+digs} ()
+\begin{DoxyCompactList}\small\item\em Removes randomly selected digits from the board. \end{DoxyCompactList}\item 
+\Hypertarget{class_board_aab5307cc1049f47369db8976c020bdaf}\label{class_board_aab5307cc1049f47369db8976c020bdaf} 
+void {\bfseries print\+Sudoku} ()
+\begin{DoxyCompactList}\small\item\em Prints the Sudoku board. \end{DoxyCompactList}\item 
+\Hypertarget{class_board_ab9bc28fa5c826859b97152302bc05da4}\label{class_board_ab9bc28fa5c826859b97152302bc05da4} 
+void {\bfseries regenerate\+Board} ()
+\begin{DoxyCompactList}\small\item\em Regenerates the Sudoku board with new values. \end{DoxyCompactList}\item 
+\Hypertarget{class_board_a73374d9dd7ca7b0321767c23cb151394}\label{class_board_a73374d9dd7ca7b0321767c23cb151394} 
+void {\bfseries regenerate\+Board} (std\+::string diff)
+\item 
+bool \mbox{\hyperlink{class_board_a5e78543bf38ebb5b8a6a000b7ec49976}{solve\+Sudoku}} ()
+\begin{DoxyCompactList}\small\item\em Solves the Sudoku puzzle. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_board_ad05be3ce3da2468b09b0f16c1c2b78e6}{find\+Unassigned\+Location}} (int \&row, int \&col)
+\begin{DoxyCompactList}\small\item\em Finds an unassigned location on the board. \end{DoxyCompactList}\item 
+int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_board_a112af2c31a63e6146537b6c335804f5a}{get\+Board}} ()
+\begin{DoxyCompactList}\small\item\em Retrieves the Sudoku board. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_board_a07658c5c56b9849ca13b204d4cec5f19}{init\+Pencil\+Marks}} ()
+\begin{DoxyCompactList}\small\item\em Initializes all pencil marks to false. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_board_a6b8260031b0f28f132d474cbd6e8d5ef}{add\+Pencil\+Mark}} (int row, int col, int mark)
+\begin{DoxyCompactList}\small\item\em Adds a pencil mark for a given number on the board. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_board_a8c9f06fb889dcbc5a93a8bd3a39a8107}{remove\+Pencil\+Mark}} (int row, int col, int mark)
+\begin{DoxyCompactList}\small\item\em Removes a pencil mark for a given number on the board. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_board_a7f69c49355943728d307b92cbf11f1a0}{has\+Pencil\+Mark}} (int row, int col, int mark)
+\begin{DoxyCompactList}\small\item\em Checks if a pencil mark exists for a given number on the board. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_board_a6b2919841749e85f6d34c5350f100545}{is\+Locked}} (int row, int col)
+\begin{DoxyCompactList}\small\item\em Checks if a cell on the board is locked. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_board_a4d87f47521f6b86109112b8c5111dae8}{is\+Scored}} (int row, int col)
+\begin{DoxyCompactList}\small\item\em Checks if a cell on the board is scored. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_board_a6100ae155c1b18938e89d9deaee82726}{set\+Scored}} (int row, int col)
+\begin{DoxyCompactList}\small\item\em Marks a cell on the board as scored. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_board_a996ff5575ce0efd2aeed279024755532}\label{class_board_a996ff5575ce0efd2aeed279024755532} 
+int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} {\bfseries user\+Board}
+\item 
+\Hypertarget{class_board_a34e93b0c8fb71752cb141a6fbfc548a1}\label{class_board_a34e93b0c8fb71752cb141a6fbfc548a1} 
+int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} {\bfseries board}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_board_a37af4bd6678038826a0ac007f3348a9c}\label{class_board_a37af4bd6678038826a0ac007f3348a9c} 
+int {\bfseries N}
+\item 
+\Hypertarget{class_board_a00978561dd472513325cca968e1a6592}\label{class_board_a00978561dd472513325cca968e1a6592} 
+int {\bfseries num\+\_\+of\+\_\+rows}
+\item 
+\Hypertarget{class_board_af2d3b4e7da60231f268124f8150f226a}\label{class_board_af2d3b4e7da60231f268124f8150f226a} 
+int {\bfseries missing\+\_\+dig}
+\item 
+\Hypertarget{class_board_a15fb932397996f073baf10972f2daea5}\label{class_board_a15fb932397996f073baf10972f2daea5} 
+bool {\bfseries pencil\+Marks} \mbox{[}9\mbox{]}\mbox{[}9\mbox{]}\mbox{[}9\mbox{]}
+\item 
+\Hypertarget{class_board_afcdc1829f0283f837a9218802ccafa99}\label{class_board_afcdc1829f0283f837a9218802ccafa99} 
+bool {\bfseries locked} \mbox{[}9\mbox{]}\mbox{[}9\mbox{]}
+\item 
+\Hypertarget{class_board_a5e47c6ddbbfa5ffd866260c5a29a3cd3}\label{class_board_a5e47c6ddbbfa5ffd866260c5a29a3cd3} 
+bool {\bfseries scored} \mbox{[}9\mbox{]}\mbox{[}9\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_board_afc377bbf7567df5be05827dea282f642}\label{class_board_afc377bbf7567df5be05827dea282f642} 
+\index{Board@{Board}!Board@{Board}}
+\index{Board@{Board}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{Board()}{Board()}}
+{\footnotesize\ttfamily Board\+::\+Board (\begin{DoxyParamCaption}\item[{int}]{rows,  }\item[{int}]{M }\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{class_board}{Board} object with the specified number of rows and missing digits. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rows} & The number of rows in the board. \\
+\hline
+{\em M} & The number of missing digits. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_board_a6b8260031b0f28f132d474cbd6e8d5ef}\label{class_board_a6b8260031b0f28f132d474cbd6e8d5ef} 
+\index{Board@{Board}!addPencilMark@{addPencilMark}}
+\index{addPencilMark@{addPencilMark}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{addPencilMark()}{addPencilMark()}}
+{\footnotesize\ttfamily void Board\+::add\+Pencil\+Mark (\begin{DoxyParamCaption}\item[{int}]{row,  }\item[{int}]{col,  }\item[{int}]{mark }\end{DoxyParamCaption})}
+
+
+
+Adds a pencil mark for a given number on the board. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em row} & The row index where the pencil mark is to be added. \\
+\hline
+{\em col} & The column index where the pencil mark is to be added. \\
+\hline
+{\em mark} & The number to be marked, in the range 1-\/9. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_board_a47709133ce04416c8a4339216e26f07e}\label{class_board_a47709133ce04416c8a4339216e26f07e} 
+\index{Board@{Board}!CheckIfSafe@{CheckIfSafe}}
+\index{CheckIfSafe@{CheckIfSafe}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{CheckIfSafe()}{CheckIfSafe()}}
+{\footnotesize\ttfamily bool Board\+::\+Check\+If\+Safe (\begin{DoxyParamCaption}\item[{int}]{i,  }\item[{int}]{j,  }\item[{int}]{num }\end{DoxyParamCaption})}
+
+
+
+Checks if it\textquotesingle{}s safe to place a number in the given position. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The row index. \\
+\hline
+{\em j} & The column index. \\
+\hline
+{\em num} & The number to be placed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if it\textquotesingle{}s safe to place the number, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_board_a1197f66952676582d07e8d2be21c5f30}\label{class_board_a1197f66952676582d07e8d2be21c5f30} 
+\index{Board@{Board}!fillBox@{fillBox}}
+\index{fillBox@{fillBox}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{fillBox()}{fillBox()}}
+{\footnotesize\ttfamily void Board\+::fill\+Box (\begin{DoxyParamCaption}\item[{int}]{row,  }\item[{int}]{col }\end{DoxyParamCaption})}
+
+
+
+Fills a 3x3 box of the board with random numbers. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em row} & The starting row index of the box. \\
+\hline
+{\em col} & The starting column index of the box. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_board_a7eba5ca50b8c3612d1b291b33a817475}\label{class_board_a7eba5ca50b8c3612d1b291b33a817475} 
+\index{Board@{Board}!fillRemaining@{fillRemaining}}
+\index{fillRemaining@{fillRemaining}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{fillRemaining()}{fillRemaining()}}
+{\footnotesize\ttfamily bool Board\+::fill\+Remaining (\begin{DoxyParamCaption}\item[{int}]{i,  }\item[{int}]{j }\end{DoxyParamCaption})}
+
+
+
+Fills the remaining cells of the board recursively. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The current row index. \\
+\hline
+{\em j} & The current column index. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the board is filled, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_board_ad05be3ce3da2468b09b0f16c1c2b78e6}\label{class_board_ad05be3ce3da2468b09b0f16c1c2b78e6} 
+\index{Board@{Board}!findUnassignedLocation@{findUnassignedLocation}}
+\index{findUnassignedLocation@{findUnassignedLocation}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{findUnassignedLocation()}{findUnassignedLocation()}}
+{\footnotesize\ttfamily bool Board\+::find\+Unassigned\+Location (\begin{DoxyParamCaption}\item[{int \&}]{row,  }\item[{int \&}]{col }\end{DoxyParamCaption})}
+
+
+
+Finds an unassigned location on the board. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em row} & Reference to store the row index of the unassigned location. \\
+\hline
+{\em col} & Reference to store the column index of the unassigned location. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if an unassigned location is found, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_board_a112af2c31a63e6146537b6c335804f5a}\label{class_board_a112af2c31a63e6146537b6c335804f5a} 
+\index{Board@{Board}!getBoard@{getBoard}}
+\index{getBoard@{getBoard}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{getBoard()}{getBoard()}}
+{\footnotesize\ttfamily int \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Board\+::get\+Board (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Retrieves the Sudoku board. 
+
+\begin{DoxyReturn}{Returns}
+A pointer to the 2D array representing the Sudoku board. 
+\end{DoxyReturn}
+\Hypertarget{class_board_a7f69c49355943728d307b92cbf11f1a0}\label{class_board_a7f69c49355943728d307b92cbf11f1a0} 
+\index{Board@{Board}!hasPencilMark@{hasPencilMark}}
+\index{hasPencilMark@{hasPencilMark}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{hasPencilMark()}{hasPencilMark()}}
+{\footnotesize\ttfamily bool Board\+::has\+Pencil\+Mark (\begin{DoxyParamCaption}\item[{int}]{row,  }\item[{int}]{col,  }\item[{int}]{mark }\end{DoxyParamCaption})}
+
+
+
+Checks if a pencil mark exists for a given number on the board. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em row} & The row index to be checked. \\
+\hline
+{\em col} & The column index to be checked. \\
+\hline
+{\em mark} & The number to check for a pencil mark, in the range 1-\/9. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the pencil mark is present, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_board_a07658c5c56b9849ca13b204d4cec5f19}\label{class_board_a07658c5c56b9849ca13b204d4cec5f19} 
+\index{Board@{Board}!initPencilMarks@{initPencilMarks}}
+\index{initPencilMarks@{initPencilMarks}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{initPencilMarks()}{initPencilMarks()}}
+{\footnotesize\ttfamily void Board\+::init\+Pencil\+Marks (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Initializes all pencil marks to false. 
+
+This function goes through the 3D array pencil\+Marks and sets each value to false, effectively clearing any previously set pencil marks on the board. \Hypertarget{class_board_a6b2919841749e85f6d34c5350f100545}\label{class_board_a6b2919841749e85f6d34c5350f100545} 
+\index{Board@{Board}!isLocked@{isLocked}}
+\index{isLocked@{isLocked}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{isLocked()}{isLocked()}}
+{\footnotesize\ttfamily bool Board\+::is\+Locked (\begin{DoxyParamCaption}\item[{int}]{row,  }\item[{int}]{col }\end{DoxyParamCaption})}
+
+
+
+Checks if a cell on the board is locked. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em row} & The row index of the cell. \\
+\hline
+{\em col} & The column index of the cell. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the cell is locked, otherwise false. 
+\end{DoxyReturn}
+\Hypertarget{class_board_a4d87f47521f6b86109112b8c5111dae8}\label{class_board_a4d87f47521f6b86109112b8c5111dae8} 
+\index{Board@{Board}!isScored@{isScored}}
+\index{isScored@{isScored}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{isScored()}{isScored()}}
+{\footnotesize\ttfamily bool Board\+::is\+Scored (\begin{DoxyParamCaption}\item[{int}]{row,  }\item[{int}]{col }\end{DoxyParamCaption})}
+
+
+
+Checks if a cell on the board is scored. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em row} & The row index of the cell. \\
+\hline
+{\em col} & The column index of the cell. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the cell is scored, otherwise false. 
+\end{DoxyReturn}
+\Hypertarget{class_board_a8c9f06fb889dcbc5a93a8bd3a39a8107}\label{class_board_a8c9f06fb889dcbc5a93a8bd3a39a8107} 
+\index{Board@{Board}!removePencilMark@{removePencilMark}}
+\index{removePencilMark@{removePencilMark}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{removePencilMark()}{removePencilMark()}}
+{\footnotesize\ttfamily void Board\+::remove\+Pencil\+Mark (\begin{DoxyParamCaption}\item[{int}]{row,  }\item[{int}]{col,  }\item[{int}]{mark }\end{DoxyParamCaption})}
+
+
+
+Removes a pencil mark for a given number on the board. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em row} & The row index from which the pencil mark is to be removed. \\
+\hline
+{\em col} & The column index from which the pencil mark is to be removed. \\
+\hline
+{\em mark} & The number for which the pencil mark is to be removed, in the range 1-\/9. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_board_a6100ae155c1b18938e89d9deaee82726}\label{class_board_a6100ae155c1b18938e89d9deaee82726} 
+\index{Board@{Board}!setScored@{setScored}}
+\index{setScored@{setScored}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{setScored()}{setScored()}}
+{\footnotesize\ttfamily void Board\+::set\+Scored (\begin{DoxyParamCaption}\item[{int}]{row,  }\item[{int}]{col }\end{DoxyParamCaption})}
+
+
+
+Marks a cell on the board as scored. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em row} & The row index of the cell. \\
+\hline
+{\em col} & The column index of the cell. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_board_a5e78543bf38ebb5b8a6a000b7ec49976}\label{class_board_a5e78543bf38ebb5b8a6a000b7ec49976} 
+\index{Board@{Board}!solveSudoku@{solveSudoku}}
+\index{solveSudoku@{solveSudoku}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{solveSudoku()}{solveSudoku()}}
+{\footnotesize\ttfamily bool Board\+::solve\+Sudoku (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Solves the Sudoku puzzle. 
+
+\begin{DoxyReturn}{Returns}
+true if the puzzle is solved, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_board_a288131b8de8551aac1ed0cf52f584290}\label{class_board_a288131b8de8551aac1ed0cf52f584290} 
+\index{Board@{Board}!unUsedInBox@{unUsedInBox}}
+\index{unUsedInBox@{unUsedInBox}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{unUsedInBox()}{unUsedInBox()}}
+{\footnotesize\ttfamily bool Board\+::un\+Used\+In\+Box (\begin{DoxyParamCaption}\item[{int}]{row,  }\item[{int}]{col,  }\item[{int}]{num }\end{DoxyParamCaption})}
+
+
+
+Checks if a specific number is used in a box. 
+
+This function can be used to check whether a number can be inputted into a 3x3 box as a valid move.
+
+
+\begin{DoxyParams}{Parameters}
+{\em row} & The row index of the box. \\
+\hline
+{\em col} & The column index of the box. \\
+\hline
+{\em num} & The number to be checked. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the number is not used in the box, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_board_a12f0cb26fed5a052ca3b6fb283e03723}\label{class_board_a12f0cb26fed5a052ca3b6fb283e03723} 
+\index{Board@{Board}!unUsedInCol@{unUsedInCol}}
+\index{unUsedInCol@{unUsedInCol}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{unUsedInCol()}{unUsedInCol()}}
+{\footnotesize\ttfamily bool Board\+::un\+Used\+In\+Col (\begin{DoxyParamCaption}\item[{int}]{j,  }\item[{int}]{num }\end{DoxyParamCaption})}
+
+
+
+Checks if a number is unused in the given column. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em j} & The column index. \\
+\hline
+{\em num} & The number to be checked. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the number is not used in the column, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_board_a2de749f3b7d51304b55f7f5a6a53d0e2}\label{class_board_a2de749f3b7d51304b55f7f5a6a53d0e2} 
+\index{Board@{Board}!unUsedInRow@{unUsedInRow}}
+\index{unUsedInRow@{unUsedInRow}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{unUsedInRow()}{unUsedInRow()}}
+{\footnotesize\ttfamily bool Board\+::un\+Used\+In\+Row (\begin{DoxyParamCaption}\item[{int}]{i,  }\item[{int}]{num }\end{DoxyParamCaption})}
+
+
+
+Checks if a number is unused in the given row. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The row index. \\
+\hline
+{\em num} & The number to be checked. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the number is not used in the row, false otherwise. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+board.\+h\item 
+board.\+cpp\end{DoxyCompactItemize}

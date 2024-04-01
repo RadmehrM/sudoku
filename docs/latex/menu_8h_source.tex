@@ -1,0 +1,42 @@
+\doxysection{menu.\+h}
+\hypertarget{menu_8h_source}{}\label{menu_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ MENU\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ MENU\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QWidget>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <QPushButton>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <QVBoxLayout>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <QLabel>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <QApplication>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}board.h"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_menu}{Menu}}\ :\ \textcolor{keyword}{public}\ QWidget\ \{}
+\DoxyCodeLine{00013\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00014\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{class_menu_a81e517b62384dc184425757e6dba87d3}{Menu}}(QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_menu_a73ad46717b2d1471d6f2285e7d1cd567}{getDifficulty}}();}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{private}\ slots:}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_menu_a8be28f5400cf9616d7552c9accfc901d}{startGame}}();}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_menu_a367e769af225418a8504940b04979c76}{changeDifficulty}}();}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_menu_ade755f2e7d8aca9d795f054504592eba}{exit}}();}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{int}\ currentDifficultyIndex\ =\ 0;\ \textcolor{comment}{//\ Use\ a\ class\ member\ instead\ of\ a\ global\ variable}}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::string>\ difficulties\ =\ \{\textcolor{stringliteral}{"{}Easy"{}},\ \textcolor{stringliteral}{"{}Medium"{}},\ \textcolor{stringliteral}{"{}Hard"{}}\};}
+\DoxyCodeLine{00027\ \ \ \ \ QPushButton\ *button1;}
+\DoxyCodeLine{00028\ \ \ \ \ QPushButton\ *button2;}
+\DoxyCodeLine{00029\ \ \ \ \ QPushButton\ *button3;}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ signals:}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ difficultyChanged(\textcolor{keywordtype}{int}\ newDifficulty);}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ beginGame();}
+\DoxyCodeLine{00034\ \};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ MENU\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,98 @@
+\doxysection{Hints Class Reference}
+\hypertarget{class_hints}{}\label{class_hints}\index{Hints@{Hints}}
+Inheritance diagram for Hints\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_hints}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_hints_a41299871d4553ccde6febc11afe2a4af}{show\+Hint}} ()
+\begin{DoxyCompactList}\small\item\em Displays a hint to the user. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_hints_a43a390a89fb157f60f172f62e43bdee3}{Hints}} (QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em \doxylink{class_hints}{Hints} Class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{class_hints_adf65835dee9714acb3f3441bb49b3b5b}{get\+Hint}} ()
+\begin{DoxyCompactList}\small\item\em Retrieves a hint from a predefined list of hints. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_hints_a5b1b5fc814fe6adac1f869378648880d}\label{class_hints_a5b1b5fc814fe6adac1f869378648880d} 
+QText\+Edit \texorpdfstring{$\ast$}{*} {\bfseries text\+Edit}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_hints_a43a390a89fb157f60f172f62e43bdee3}\label{class_hints_a43a390a89fb157f60f172f62e43bdee3} 
+\index{Hints@{Hints}!Hints@{Hints}}
+\index{Hints@{Hints}!Hints@{Hints}}
+\doxysubsubsection{\texorpdfstring{Hints()}{Hints()}}
+{\footnotesize\ttfamily Hints\+::\+Hints (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+\doxylink{class_hints}{Hints} Class. 
+
+This class is used to help configure the hints component in the user interface.
+
+\begin{DoxyAuthor}{Author}
+Daniel Gomes 
+
+Zain Raza 
+
+Radmehr Mehdipour 
+
+Sreethan Vuppala 
+
+Aidan Freeman
+\end{DoxyAuthor}
+Constructs the Hints\+Window widget.
+
+Initializes the Hints\+Window with a text edit field for displaying hints. The text edit is set to read-\/only and is configured with an appropriate font size.
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & The parent widget which owns this Hints\+Window instance. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_hints_adf65835dee9714acb3f3441bb49b3b5b}\label{class_hints_adf65835dee9714acb3f3441bb49b3b5b} 
+\index{Hints@{Hints}!getHint@{getHint}}
+\index{getHint@{getHint}!Hints@{Hints}}
+\doxysubsubsection{\texorpdfstring{getHint()}{getHint()}}
+{\footnotesize\ttfamily std\+::string Hints\+::get\+Hint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Retrieves a hint from a predefined list of hints. 
+
+This method cycles through a static list of hints for the Sudoku game, returning each hint in sequence. It wraps around to the beginning of the list once all hints have been shown.
+
+\begin{DoxyReturn}{Returns}
+A string containing the next hint to be displayed. 
+\end{DoxyReturn}
+\Hypertarget{class_hints_a41299871d4553ccde6febc11afe2a4af}\label{class_hints_a41299871d4553ccde6febc11afe2a4af} 
+\index{Hints@{Hints}!showHint@{showHint}}
+\index{showHint@{showHint}!Hints@{Hints}}
+\doxysubsubsection{\texorpdfstring{showHint}{showHint}}
+{\footnotesize\ttfamily void Hints\+::show\+Hint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Displays a hint to the user. 
+
+This method is called to display the hints window with a new hint each time the \textquotesingle{}Hint\textquotesingle{} button is clicked. It cycles through a static list of hints and displays them one by one. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+hints.\+h\item 
+hints.\+cpp\end{DoxyCompactItemize}

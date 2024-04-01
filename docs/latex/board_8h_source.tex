@@ -1,0 +1,80 @@
+\doxysection{board.\+h}
+\hypertarget{board_8h_source}{}\label{board_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ BOARD\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ BOARD\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <math.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_board}{Board}}\ \{}
+\DoxyCodeLine{00011\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00012\ \ \ \ \ }
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordtype}{int}\ N;}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{int}\ num\_of\_rows;}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{int}\ missing\_dig;}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{bool}\ pencilMarks[9][9][9];}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{bool}\ locked[9][9];}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{bool}\ scored[9][9];}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{int}**\ userBoard;}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{int}**\ board;}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{comment}{//\ Default\ constructor}}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{class_board_afc377bbf7567df5be05827dea282f642}{Board}}(\textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{int}\ missing\_dig);}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{comment}{//\ Member\ function\ to\ reset\ the\ board}}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_board_a7cef7a9ca499d64c71cb170d67f76ad0}{resetBoard}}();}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{comment}{//\ Member\ function\ to\ fill\ the\ board}}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_board_ada048789b3d9e13aaa52f4b8d1a72b50}{fillBoard}}();}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_board_ad1402558fd5926cf3b012ddd1d23618f}{fillDiagonal}}();}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_board_a1197f66952676582d07e8d2be21c5f30}{fillBox}}(\textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ j);}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_board_a7eba5ca50b8c3612d1b291b33a817475}{fillRemaining}}(\textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ j);}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_board_a288131b8de8551aac1ed0cf52f584290}{unUsedInBox}}(\textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ j,\ \textcolor{keywordtype}{int}\ num);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_board_a2de749f3b7d51304b55f7f5a6a53d0e2}{unUsedInRow}}(\textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ num);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_board_a12f0cb26fed5a052ca3b6fb283e03723}{unUsedInCol}}(\textcolor{keywordtype}{int}\ j,\ \textcolor{keywordtype}{int}\ num);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_board_a47709133ce04416c8a4339216e26f07e}{CheckIfSafe}}(\textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ j,\ \textcolor{keywordtype}{int}\ num);}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_board_a6d69798da3c4409861078df3261a5185}{remove\_missing\_digs}}();}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_board_aab5307cc1049f47369db8976c020bdaf}{printSudoku}}();}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_board_ab9bc28fa5c826859b97152302bc05da4}{regenerateBoard}}();}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_board_ab9bc28fa5c826859b97152302bc05da4}{regenerateBoard}}(std::string\ diff);}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_board_a5e78543bf38ebb5b8a6a000b7ec49976}{solveSudoku}}();}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_board_ad05be3ce3da2468b09b0f16c1c2b78e6}{findUnassignedLocation}}(\textcolor{keywordtype}{int}\ \&row,\ \textcolor{keywordtype}{int}\ \&col);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{int}**\ \mbox{\hyperlink{class_board_a112af2c31a63e6146537b6c335804f5a}{getBoard}}();}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_board_a07658c5c56b9849ca13b204d4cec5f19}{initPencilMarks}}();}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_board_a6b8260031b0f28f132d474cbd6e8d5ef}{addPencilMark}}(\textcolor{keywordtype}{int}\ row,\ \textcolor{keywordtype}{int}\ col,\ \textcolor{keywordtype}{int}\ mark);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_board_a8c9f06fb889dcbc5a93a8bd3a39a8107}{removePencilMark}}(\textcolor{keywordtype}{int}\ row,\ \textcolor{keywordtype}{int}\ col,\ \textcolor{keywordtype}{int}\ mark);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_board_a7f69c49355943728d307b92cbf11f1a0}{hasPencilMark}}(\textcolor{keywordtype}{int}\ row,\ \textcolor{keywordtype}{int}\ col,\ \textcolor{keywordtype}{int}\ mark);}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_board_a6b2919841749e85f6d34c5350f100545}{isLocked}}(\textcolor{keywordtype}{int}\ row,\ \textcolor{keywordtype}{int}\ col);\ }
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_board_a4d87f47521f6b86109112b8c5111dae8}{isScored}}(\textcolor{keywordtype}{int}\ row,\ \textcolor{keywordtype}{int}\ col);\ }
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_board_a6100ae155c1b18938e89d9deaee82726}{setScored}}(\textcolor{keywordtype}{int}\ row,\ \textcolor{keywordtype}{int}\ col);\ }
+\DoxyCodeLine{00073\ \};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ BOARD\_H}}
+
+\end{DoxyCode}

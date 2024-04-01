@@ -1,0 +1,368 @@
+\doxysection{Window Class Reference}
+\hypertarget{class_window}{}\label{class_window}\index{Window@{Window}}
+Inheritance diagram for Window\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_window}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_window_af0b85b108626af8dda987a5b6caf3bff}{on\+Difficulty\+Changed}} (int new\+Difficulty)
+\begin{DoxyCompactList}\small\item\em Handles the change in difficulty level of the game. \end{DoxyCompactList}\item 
+\Hypertarget{class_window_ae9b271b5bf53cc7f46d2beba2bdd3f85}\label{class_window_ae9b271b5bf53cc7f46d2beba2bdd3f85} 
+void {\bfseries begin\+Game} ()
+\begin{DoxyCompactList}\small\item\em Begins the game by restarting the game timer and setting the current widget to the central widget. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_window_a8c86e48ef3180201cc97cb928abd66ca}{Window}} (QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_window}{Window} object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_window_a2ffc2cb6a655a0456bb89638d80f5437}\label{class_window_a2ffc2cb6a655a0456bb89638d80f5437} 
+QStacked\+Widget \texorpdfstring{$\ast$}{*} {\bfseries stacked\+Widget}
+\item 
+\Hypertarget{class_window_acc9789b179edbc46006eb0bf6f45cb16}\label{class_window_acc9789b179edbc46006eb0bf6f45cb16} 
+bool {\bfseries Game\+Won} =false
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_window_af0a144095fc32bef82126fcb9926ec6c}{set\+Line\+Edit\+Value}} (int N, int M, const QString \&value)
+\begin{DoxyCompactList}\small\item\em Sets the value of a QLine\+Edit widget at the specified position. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_window_a06c6decd41962d0707cf96fcf44c6d60}{validate\+Input}} ()
+\begin{DoxyCompactList}\small\item\em Validates the input in a QLine\+Edit widget. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_window_acc4996be5dda1782ccd261d74288ac82}{update\+Board}} ()
+\begin{DoxyCompactList}\small\item\em Updates the Sudoku board displayed on the window. \end{DoxyCompactList}\item 
+\Hypertarget{class_window_ade440311b2dbe29208baac0a78c970dd}\label{class_window_ade440311b2dbe29208baac0a78c970dd} 
+void {\bfseries update\+Timer\+Display} ()
+\begin{DoxyCompactList}\small\item\em Updates the displayed game timer. \end{DoxyCompactList}\item 
+\Hypertarget{class_window_aa09e9030166b79012fd284a3db7f0594}\label{class_window_aa09e9030166b79012fd284a3db7f0594} 
+void {\bfseries update\+Cell\+Border} ()
+\item 
+bool \mbox{\hyperlink{class_window_ac0b82919ef048cb72a4420c183d12096}{is\+Grid\+Full}} ()
+\begin{DoxyCompactList}\small\item\em Updates the border style of cells in the Sudoku grid layout. \end{DoxyCompactList}\item 
+\Hypertarget{class_window_a3bfa89737fb6744e305eb06ef4845c4b}\label{class_window_a3bfa89737fb6744e305eb06ef4845c4b} 
+void {\bfseries toggle\+Pencil\+Mode} ()
+\begin{DoxyCompactList}\small\item\em Toggles the pencil mode on or off and updates the UI accordingly. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_window_aedd5349cd10831e9e20fcfd1c0aba8a9}{set\+Line\+Edit\+Size}} (int size)
+\begin{DoxyCompactList}\small\item\em Sets the size and validation properties for line edit widgets in the Sudoku grid. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_window_adeeca17003e0352b93ccb3244ab922c6}{check\+Conflict}} (int row, int col, int value, QLine\+Edit \texorpdfstring{$\ast$}{*}sender, QVector$<$ QLine\+Edit \texorpdfstring{$\ast$}{*} $>$ \&conflict\+Cells)
+\begin{DoxyCompactList}\small\item\em Checks for conflicts in the Sudoku board. \end{DoxyCompactList}\item 
+\Hypertarget{class_window_af5392635c0e15ece45d1e3b212d8f950}\label{class_window_af5392635c0e15ece45d1e3b212d8f950} 
+void {\bfseries create\+Buttons} ()
+\item 
+void \mbox{\hyperlink{class_window_a4e7851e7a3f3b13daa5499cafd4578ca}{show\+Winning\+Animation}} ()
+\begin{DoxyCompactList}\small\item\em Displays a winning animation overlay with options to exit or play again. \end{DoxyCompactList}\item 
+\Hypertarget{class_window_a8f7f42fe120fc7b51121e2956b724b27}\label{class_window_a8f7f42fe120fc7b51121e2956b724b27} 
+void {\bfseries create\+Layout} ()
+\item 
+void \mbox{\hyperlink{class_window_a570ec36c828de23a4c6cd525434211a5}{show\+Logbook}} ()
+\begin{DoxyCompactList}\small\item\em Displays the logbook containing information about completed games. \end{DoxyCompactList}\item 
+\Hypertarget{class_window_a9e0bee69e2677c1341dde0228bde4ca7}\label{class_window_a9e0bee69e2677c1341dde0228bde4ca7} 
+void {\bfseries increment\+Score} (int value)
+\item 
+\Hypertarget{class_window_ad6b4e904f539400aea6dc09c06b57539}\label{class_window_ad6b4e904f539400aea6dc09c06b57539} 
+void {\bfseries decrement\+Score} (int value)
+\item 
+\Hypertarget{class_window_a1897acc96e8234a601e82e1e594f3b2f}\label{class_window_a1897acc96e8234a601e82e1e594f3b2f} 
+void {\bfseries update\+Pencil\+Mode\+UI} ()
+\begin{DoxyCompactList}\small\item\em Updates the UI elements to reflect the current pencil mode status. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_window_a07046eb6dc397a976d85ffb1dbb9f2ca}{clean\+Pencil\+Input}} (std\+::string input\+Data)
+\begin{DoxyCompactList}\small\item\em Cleans and sorts the input data for pencil mode. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_window_a3ae81cf90a68ae65530b43a2c51f39ea}{last\+Digit\+Present}} (std\+::string input\+Data)
+\begin{DoxyCompactList}\small\item\em Checks if the last digit of the input data is present more than once. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_window_a05edea2e039ba8bc790f8ab418b961ab}{change\+Difficulty}} ()
+\begin{DoxyCompactList}\small\item\em Changes the difficulty level of the game. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_window_ad48a410b6520bfff8dc425b9e6c2b519}\label{class_window_ad48a410b6520bfff8dc425b9e6c2b519} 
+int {\bfseries current\+Difficulty\+Index} = 0
+\item 
+\Hypertarget{class_window_a7e0d7c004df9687c62fac019998a9871}\label{class_window_a7e0d7c004df9687c62fac019998a9871} 
+const std\+::vector$<$ std\+::string $>$ {\bfseries difficulties} = \{"{}Easy"{}, "{}Medium"{}, "{}Hard"{}\}
+\item 
+\Hypertarget{class_window_a9ded6d7a95e174cc3fe00974bb34287d}\label{class_window_a9ded6d7a95e174cc3fe00974bb34287d} 
+int {\bfseries score}
+\item 
+\Hypertarget{class_window_af97eba4e2de1fee6c343b3e21123489d}\label{class_window_af97eba4e2de1fee6c343b3e21123489d} 
+QVector$<$ int $>$ {\bfseries scores}
+\item 
+\Hypertarget{class_window_a1e1ac795fd38bda8830f46cd0c69c418}\label{class_window_a1e1ac795fd38bda8830f46cd0c69c418} 
+QElapsed\+Timer \texorpdfstring{$\ast$}{*} {\bfseries game\+Timer}
+\item 
+\Hypertarget{class_window_a33b24f4e9ed322f9f67995181ecb225b}\label{class_window_a33b24f4e9ed322f9f67995181ecb225b} 
+QVector$<$ qint64 $>$ {\bfseries game\+Durations}
+\item 
+\Hypertarget{class_window_a781c8e8c9b9dffa5fdbde5e967a5459a}\label{class_window_a781c8e8c9b9dffa5fdbde5e967a5459a} 
+QVector$<$ int $>$ {\bfseries game\+Difficulties}
+\item 
+\Hypertarget{class_window_afbb7667b9b3dbd17fb0ddd40437c4636}\label{class_window_afbb7667b9b3dbd17fb0ddd40437c4636} 
+QGrid\+Layout \texorpdfstring{$\ast$}{*} {\bfseries gridlayout}
+\item 
+\Hypertarget{class_window_a6a41da58a9985b88d11d24c8527d55f8}\label{class_window_a6a41da58a9985b88d11d24c8527d55f8} 
+QPush\+Button \texorpdfstring{$\ast$}{*} {\bfseries fill\+Grid\+Button}
+\item 
+\Hypertarget{class_window_ab85826e5d46ea16c3b9f91b966bec9a2}\label{class_window_ab85826e5d46ea16c3b9f91b966bec9a2} 
+QPush\+Button \texorpdfstring{$\ast$}{*} {\bfseries new\+Game\+Button}
+\item 
+\Hypertarget{class_window_a1d16ea42e1c874ed170e8f619674d80c}\label{class_window_a1d16ea42e1c874ed170e8f619674d80c} 
+QPush\+Button {\bfseries difficulty\+Button}
+\item 
+\Hypertarget{class_window_a358d9c9d353bf427361ce663673f11a0}\label{class_window_a358d9c9d353bf427361ce663673f11a0} 
+QPush\+Button {\bfseries pencil\+Mode\+Button}
+\item 
+\Hypertarget{class_window_ad9b0a8e39fd1f4ce8d57f0d361ef87a1}\label{class_window_ad9b0a8e39fd1f4ce8d57f0d361ef87a1} 
+\mbox{\hyperlink{class_board}{Board}} \texorpdfstring{$\ast$}{*} {\bfseries sudoku\+Board}
+\item 
+\Hypertarget{class_window_a39198628841ab187d8ab28d63fab1362}\label{class_window_a39198628841ab187d8ab28d63fab1362} 
+QLabel \texorpdfstring{$\ast$}{*} {\bfseries score\+Label}
+\item 
+\Hypertarget{class_window_aec79a9f3389308036e80ad4e70394555}\label{class_window_aec79a9f3389308036e80ad4e70394555} 
+QPush\+Button \texorpdfstring{$\ast$}{*} {\bfseries view\+Logbook\+Button}
+\item 
+\Hypertarget{class_window_abeb0419378bf5200ac9569c0b74348d1}\label{class_window_abeb0419378bf5200ac9569c0b74348d1} 
+QWidget \texorpdfstring{$\ast$}{*} {\bfseries central\+Widget}
+\item 
+\Hypertarget{class_window_a61e8ed99d15ca3d9d722193643dcd1c7}\label{class_window_a61e8ed99d15ca3d9d722193643dcd1c7} 
+\mbox{\hyperlink{class_hints}{Hints}} \texorpdfstring{$\ast$}{*} {\bfseries hints\+Window}
+\item 
+\Hypertarget{class_window_ace4bb8d3f9e007ef28bd1398bc1cb65e}\label{class_window_ace4bb8d3f9e007ef28bd1398bc1cb65e} 
+QLine\+Edit \texorpdfstring{$\ast$}{*} {\bfseries line\+Edit}
+\item 
+\Hypertarget{class_window_ac435753c46708e001ba40b333b85a1d9}\label{class_window_ac435753c46708e001ba40b333b85a1d9} 
+QText\+Edit \texorpdfstring{$\ast$}{*} {\bfseries text\+Edit}
+\item 
+\Hypertarget{class_window_afb8306b3a61a012021a910dca6c7ee7d}\label{class_window_afb8306b3a61a012021a910dca6c7ee7d} 
+QLabel \texorpdfstring{$\ast$}{*} {\bfseries timer\+Label}
+\item 
+\Hypertarget{class_window_ad61a90d09a1b59da31b796a97aedb667}\label{class_window_ad61a90d09a1b59da31b796a97aedb667} 
+QTimer \texorpdfstring{$\ast$}{*} {\bfseries update\+Timer}
+\item 
+\Hypertarget{class_window_a1ca28cc9e1c6db2566b691d3f69a15bb}\label{class_window_a1ca28cc9e1c6db2566b691d3f69a15bb} 
+bool {\bfseries pencil\+Mode\+On}
+\item 
+\Hypertarget{class_window_aa70dbf865e2f9166b4085e1a4cbcdfd0}\label{class_window_aa70dbf865e2f9166b4085e1a4cbcdfd0} 
+int {\bfseries difficulty}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_window_a8c86e48ef3180201cc97cb928abd66ca}\label{class_window_a8c86e48ef3180201cc97cb928abd66ca} 
+\index{Window@{Window}!Window@{Window}}
+\index{Window@{Window}!Window@{Window}}
+\doxysubsubsection{\texorpdfstring{Window()}{Window()}}
+{\footnotesize\ttfamily Window\+::\+Window (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructs a \doxylink{class_window}{Window} object. 
+
+This constructor initializes the main window of the Sudoku application. It sets up the layout, creates the Sudoku board, fills the board, and connects signals and slots.
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & The parent widget. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_window_a05edea2e039ba8bc790f8ab418b961ab}\label{class_window_a05edea2e039ba8bc790f8ab418b961ab} 
+\index{Window@{Window}!changeDifficulty@{changeDifficulty}}
+\index{changeDifficulty@{changeDifficulty}!Window@{Window}}
+\doxysubsubsection{\texorpdfstring{changeDifficulty()}{changeDifficulty()}}
+{\footnotesize\ttfamily void Window\+::change\+Difficulty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Changes the difficulty level of the game. 
+
+This function increments the current difficulty index and updates the game timer and score. It also updates the displayed difficulty level on the UI.
+
+\begin{DoxyNote}{Note}
+If the current difficulty index exceeds the number of available difficulties, it wraps around. 
+\end{DoxyNote}
+\Hypertarget{class_window_adeeca17003e0352b93ccb3244ab922c6}\label{class_window_adeeca17003e0352b93ccb3244ab922c6} 
+\index{Window@{Window}!checkConflict@{checkConflict}}
+\index{checkConflict@{checkConflict}!Window@{Window}}
+\doxysubsubsection{\texorpdfstring{checkConflict()}{checkConflict()}}
+{\footnotesize\ttfamily void Window\+::check\+Conflict (\begin{DoxyParamCaption}\item[{int}]{row,  }\item[{int}]{col,  }\item[{int}]{value,  }\item[{QLine\+Edit \texorpdfstring{$\ast$}{*}}]{sender,  }\item[{QVector$<$ QLine\+Edit \texorpdfstring{$\ast$}{*} $>$ \&}]{conflict\+Cells }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Checks for conflicts in the Sudoku board. 
+
+This function checks for conflicts caused by adding a specific value to a cell. It checks the row, column, and 3x3 subsection of the cell for conflicts.
+
+
+\begin{DoxyParams}{Parameters}
+{\em row} & The row index of the cell. \\
+\hline
+{\em col} & The column index of the cell. \\
+\hline
+{\em value} & The value to check for conflicts. \\
+\hline
+{\em sender} & The sender QLine\+Edit widget. \\
+\hline
+{\em conflict\+Cells} & Vector to store conflicting cells. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_window_a07046eb6dc397a976d85ffb1dbb9f2ca}\label{class_window_a07046eb6dc397a976d85ffb1dbb9f2ca} 
+\index{Window@{Window}!cleanPencilInput@{cleanPencilInput}}
+\index{cleanPencilInput@{cleanPencilInput}!Window@{Window}}
+\doxysubsubsection{\texorpdfstring{cleanPencilInput()}{cleanPencilInput()}}
+{\footnotesize\ttfamily std\+::string Window\+::clean\+Pencil\+Input (\begin{DoxyParamCaption}\item[{std\+::string}]{input\+Data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Cleans and sorts the input data for pencil mode. 
+
+This function cleans the input data by removing zeros and duplicate digits, and then sorts the remaining digits in ascending order.
+
+
+\begin{DoxyParams}{Parameters}
+{\em input\+Data} & The input data to be cleaned and sorted. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The cleaned and sorted input data. 
+\end{DoxyReturn}
+\Hypertarget{class_window_ac0b82919ef048cb72a4420c183d12096}\label{class_window_ac0b82919ef048cb72a4420c183d12096} 
+\index{Window@{Window}!isGridFull@{isGridFull}}
+\index{isGridFull@{isGridFull}!Window@{Window}}
+\doxysubsubsection{\texorpdfstring{isGridFull}{isGridFull}}
+{\footnotesize\ttfamily bool Window\+::is\+Grid\+Full (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+
+
+Updates the border style of cells in the Sudoku grid layout. 
+
+This function iterates through each cell in the grid layout and adjusts the border style based on the cell\textquotesingle{}s position and whether it is locked or not. Borders are added to visually separate the 3x3 subgrids within the Sudoku grid. The color of the text within each cell is also updated based on whether the cell is locked or not. \Hypertarget{class_window_a3ae81cf90a68ae65530b43a2c51f39ea}\label{class_window_a3ae81cf90a68ae65530b43a2c51f39ea} 
+\index{Window@{Window}!lastDigitPresent@{lastDigitPresent}}
+\index{lastDigitPresent@{lastDigitPresent}!Window@{Window}}
+\doxysubsubsection{\texorpdfstring{lastDigitPresent()}{lastDigitPresent()}}
+{\footnotesize\ttfamily bool Window\+::last\+Digit\+Present (\begin{DoxyParamCaption}\item[{std\+::string}]{input\+Data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Checks if the last digit of the input data is present more than once. 
+
+This function checks if the last character of the input data appears more than once in the string. If the input data is empty, it returns false. Otherwise, it iterates through the characters in the input data, excluding the last character, and checks if any character matches the last character. If a match is found, it returns true indicating that the last digit is present more than once. If no duplicate is found, it returns false.
+
+
+\begin{DoxyParams}{Parameters}
+{\em input\+Data} & The input data to be checked. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the last digit is present more than once, otherwise false. 
+\end{DoxyReturn}
+\Hypertarget{class_window_af0b85b108626af8dda987a5b6caf3bff}\label{class_window_af0b85b108626af8dda987a5b6caf3bff} 
+\index{Window@{Window}!onDifficultyChanged@{onDifficultyChanged}}
+\index{onDifficultyChanged@{onDifficultyChanged}!Window@{Window}}
+\doxysubsubsection{\texorpdfstring{onDifficultyChanged}{onDifficultyChanged}}
+{\footnotesize\ttfamily void Window\+::on\+Difficulty\+Changed (\begin{DoxyParamCaption}\item[{int}]{new\+Difficulty }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Handles the change in difficulty level of the game. 
+
+This function deletes the existing board if it exists, creates a new board based on the selected difficulty level, and updates the UI elements accordingly.
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Difficulty} & The index of the new difficulty level. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_window_aedd5349cd10831e9e20fcfd1c0aba8a9}\label{class_window_aedd5349cd10831e9e20fcfd1c0aba8a9} 
+\index{Window@{Window}!setLineEditSize@{setLineEditSize}}
+\index{setLineEditSize@{setLineEditSize}!Window@{Window}}
+\doxysubsubsection{\texorpdfstring{setLineEditSize}{setLineEditSize}}
+{\footnotesize\ttfamily void Window\+::set\+Line\+Edit\+Size (\begin{DoxyParamCaption}\item[{int}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+
+
+Sets the size and validation properties for line edit widgets in the Sudoku grid. 
+
+This function adjusts the size and validation properties of line edit widgets in the Sudoku grid based on the provided size parameter. It sets the maximum length of input for each line edit widget to ensure that only valid numbers within the specified range can be entered.
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & The size to set for line edit widgets. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_window_af0a144095fc32bef82126fcb9926ec6c}\label{class_window_af0a144095fc32bef82126fcb9926ec6c} 
+\index{Window@{Window}!setLineEditValue@{setLineEditValue}}
+\index{setLineEditValue@{setLineEditValue}!Window@{Window}}
+\doxysubsubsection{\texorpdfstring{setLineEditValue}{setLineEditValue}}
+{\footnotesize\ttfamily void Window\+::set\+Line\+Edit\+Value (\begin{DoxyParamCaption}\item[{int}]{row,  }\item[{int}]{col,  }\item[{const QString \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+
+
+Sets the value of a QLine\+Edit widget at the specified position. 
+
+This function updates the text of the QLine\+Edit widget at the specified row and column in the grid layout with the provided value.
+
+
+\begin{DoxyParams}{Parameters}
+{\em row} & The row index of the QLine\+Edit widget. \\
+\hline
+{\em col} & The column index of the QLine\+Edit widget. \\
+\hline
+{\em value} & The value to set in the QLine\+Edit. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_window_a570ec36c828de23a4c6cd525434211a5}\label{class_window_a570ec36c828de23a4c6cd525434211a5} 
+\index{Window@{Window}!showLogbook@{showLogbook}}
+\index{showLogbook@{showLogbook}!Window@{Window}}
+\doxysubsubsection{\texorpdfstring{showLogbook()}{showLogbook()}}
+{\footnotesize\ttfamily void Window\+::show\+Logbook (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Displays the logbook containing information about completed games. 
+
+The logbook includes details such as the score, duration, and difficulty of each completed game. If no games are completed yet, it displays a message indicating that. \Hypertarget{class_window_a4e7851e7a3f3b13daa5499cafd4578ca}\label{class_window_a4e7851e7a3f3b13daa5499cafd4578ca} 
+\index{Window@{Window}!showWinningAnimation@{showWinningAnimation}}
+\index{showWinningAnimation@{showWinningAnimation}!Window@{Window}}
+\doxysubsubsection{\texorpdfstring{showWinningAnimation()}{showWinningAnimation()}}
+{\footnotesize\ttfamily void Window\+::show\+Winning\+Animation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Displays a winning animation overlay with options to exit or play again. 
+
+This function creates an overlay widget covering the entire window with a semi-\/transparent white background. It displays a congratulations message centered on the overlay. The overlay gradually fades in using opacity animation. Additionally, it creates \textquotesingle{}Exit\textquotesingle{} and \textquotesingle{}Play Again\textquotesingle{} buttons on the overlay, allowing the user to choose to exit the game or play again. Connections are established to handle button clicks appropriately. \Hypertarget{class_window_acc4996be5dda1782ccd261d74288ac82}\label{class_window_acc4996be5dda1782ccd261d74288ac82} 
+\index{Window@{Window}!updateBoard@{updateBoard}}
+\index{updateBoard@{updateBoard}!Window@{Window}}
+\doxysubsubsection{\texorpdfstring{updateBoard}{updateBoard}}
+{\footnotesize\ttfamily void Window\+::update\+Board (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+
+
+Updates the Sudoku board displayed on the window. 
+
+This function updates the Sudoku board displayed on the window based on the values stored in the sudoku\+Board object. \Hypertarget{class_window_a06c6decd41962d0707cf96fcf44c6d60}\label{class_window_a06c6decd41962d0707cf96fcf44c6d60} 
+\index{Window@{Window}!validateInput@{validateInput}}
+\index{validateInput@{validateInput}!Window@{Window}}
+\doxysubsubsection{\texorpdfstring{validateInput}{validateInput}}
+{\footnotesize\ttfamily void Window\+::validate\+Input (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+
+
+Validates the input in a QLine\+Edit widget. 
+
+This function is called when the text in a QLine\+Edit widget is edited. It validates the input according to Sudoku rules and highlights conflicting cells. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+window.\+h\item 
+window.\+cpp\end{DoxyCompactItemize}
