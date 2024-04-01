@@ -208,7 +208,7 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores(), gameD
     stackedWidget = new QStackedWidget(this);
     Menu *menu = new Menu(stackedWidget);
     menu->resize(850,800);
-    menu->setStyleSheet("background-color: white; color: black;");
+    menu->setStyleSheet("color: black;");
     menu->show();
     connect(menu, &Menu::difficultyChanged, this, &Window::onDifficultyChanged);
     connect(menu, &Menu::beginGame, this, &Window::beginGame);
