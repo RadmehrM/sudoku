@@ -130,7 +130,7 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores(), gameD
     QPushButton *hint = new QPushButton("Hint");
     QPushButton *exitButton = new QPushButton("Exit Game");
     pencilModeButton.setText("Pencil Mode Off");
-    difficultyButton.setText("Difficulty: Easy");
+    difficultyButton.setText("Change Difficulty");
     
     // hints->resize(200, hints->height());
     fillGridButton->setFixedSize(145,45);
@@ -392,13 +392,24 @@ void Window::validateInput()
         updateCellBorder(); // This function is called after a delay of 1000 milliseconds (1 second)
     });
 
-    // After each valid move, check if the game is complete
+    // After each valid move, check if the game is complete with a 1 second delay.
+
+    QTimer::singleShot(1000, this, [this]() {
+        checkGameStatus();
+    });
+}
+
+/**
+ * @brief Checks if the game is completed.
+ * 
+ * Looks at the grid and if the cells are all full then it plays the winning animation.
+ */
+void Window::checkGameStatus() {
     if (isGridFull()) {
         std::cout << "Game complete, showing animation." << std::endl;
         // Trigger the winning animation
         showWinningAnimation();
-    }
-    else {
+    } else {
         std::cout << "Game not complete, continue playing." << std::endl;
     }
 }
@@ -512,6 +523,7 @@ void Window::onDifficultyChanged(int newDifficulty) {
     if (newDifficulty == 0) sudokuBoard = new Board(9, 10);
     else if (newDifficulty == 1) sudokuBoard = new Board(9, 20);
     else if (newDifficulty == 2) sudokuBoard = new Board(9, 40);
+
 
     sudokuBoard->regenerateBoard();
 

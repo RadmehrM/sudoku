@@ -69,7 +69,8 @@ private:
   QLabel *timerLabel; // Label to display the timer
   QTimer *updateTimer; // Timer to trigger the display update
   bool pencilModeOn;
-  int difficulty; 
+  int difficulty;
+  int missingD;
   
   void checkConflict(int row, int col, int value, QLineEdit* sender, QVector<QLineEdit*>& conflictCells);
   void createButtons();
@@ -82,6 +83,7 @@ private:
   std::string cleanPencilInput(std::string inputData);
   bool lastDigitPresent(std::string inputData); 
   void changeDifficulty();
+  void checkGameStatus();
 
 };
 
