@@ -1,6 +1,6 @@
 #include "window.h"
 #include <QApplication>
-#include<QStyleFactory>
+#include <QStyleFactory>
  
 int main(int argc, char *argv[]) 
 {
@@ -11,7 +11,6 @@ int main(int argc, char *argv[])
   window.setWindowTitle("Sudoku");
   
   window.show();
-  //window.showMaximized();
   return app.exec();
 }
  
