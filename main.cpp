@@ -1,3 +1,15 @@
+/**
+ * @brief Main Class
+ * 
+ * This class is used to run the Sudoku game.
+ * 
+ * @author Daniel Gomes
+ * @author Zain Raza
+ * @author Radmehr Mehdipour
+ * @author Sreethan Vuppala
+ * @author Aidan Freeman
+ */
+
 #include "window.h"
 #include <QApplication>
 #include <QStyleFactory>

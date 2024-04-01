@@ -1,13 +1,13 @@
-#ifndef HINTSWINDOW_H
-#define HINTSWINDOW_H
+#ifndef HINTS_H
+#define HINTS_H
 
 #include <QWidget>
 #include <QTextEdit>
 
-class HintsWindow : public QWidget {
+class Hints : public QWidget {
     Q_OBJECT
 public:
-    explicit HintsWindow(QWidget *parent = nullptr);
+    explicit Hints(QWidget *parent = nullptr);
 
 public slots:
     void showHint();
@@ -17,4 +17,4 @@ private:
     std::string getHint();
 };
 
-#endif // HINTSWINDOW_H
+#endif // HINTS_H

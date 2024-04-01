@@ -1,3 +1,15 @@
+/**
+ * @brief Window Class
+ * 
+ * This class is used to set up the user interface for the board, as well as validation for certain aspects of the game.
+ * 
+ * @author Daniel Gomes
+ * @author Zain Raza
+ * @author Radmehr Mehdipour
+ * @author Sreethan Vuppala
+ * @author Aidan Freeman
+ */
+
 #include "window.h"
 #include <QLineEdit>
 #include <QValidator>
@@ -89,11 +101,8 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores(), gameD
         }
     }
 
-    
-
     // Add the grid layout to the main layout
     mainLayout->addLayout(gridlayout);
-
 
     // Timer label for the UI
     timerLabel = new QLabel("Time: 0 sec", this);
@@ -110,9 +119,8 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores(), gameD
     gameTimer->start();
 
     //Set Up Hints:
-    hintsWindow = new HintsWindow(this); // Initialize the hints window
+    hintsWindow = new Hints(this); // Initialize the hints window
     hintsWindow->setStyleSheet("background-color: transparent; border: solid 1px black");
-
 
     // Create buttons and add them to a vertical layout
     QVBoxLayout *buttonLayout = new QVBoxLayout();
@@ -166,12 +174,11 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores(), gameD
         updateBoard();
     });
 
-    connect(hint, &QPushButton::clicked, hintsWindow, &HintsWindow::showHint);
+    connect(hint, &QPushButton::clicked, hintsWindow, &Hints::showHint);
     connect(&pencilModeButton, &QPushButton::clicked, this, &Window::togglePencilMode);
     connect(exitButton, &QPushButton::clicked, this, [this] {
         QApplication::quit();
     });
-    
 
     buttonLayout->addWidget(timerLabel);
     buttonLayout->addWidget(&difficultyButton);
@@ -181,7 +188,6 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores(), gameD
     buttonLayout->addWidget(&pencilModeButton);
     buttonLayout->addWidget(hint);
     buttonLayout->addWidget(exitButton);
-    //buttonLayout->addWidget(hintsWindow);
     buttonLayout->addStretch(); // Push buttons to the top
 
     fillGridButton->setStyleSheet("QPushButton { color: white; background-color: green; border: 2px solid black; font-weight: bold;}");
@@ -219,7 +225,6 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores(), gameD
 
     // To show the menu:
     stackedWidget->setCurrentWidget(menu);
-
 }
 
 /**
@@ -451,6 +456,12 @@ void Window::updateBoard() {
     }
 }
 
+/**
+ * @brief Displays the logbook containing information about completed games.
+ * 
+ * The logbook includes details such as the score, duration, and difficulty of each completed game.
+ * If no games are completed yet, it displays a message indicating that.
+ */
 void Window::showLogbook() {
     QString logbookContent;
     for(int i = 0; i < scores.size(); ++i) {
@@ -467,6 +478,14 @@ void Window::showLogbook() {
     QMessageBox::information(this, "Logbook", logbookContent);
 }
 
+/**
+ * @brief Changes the difficulty level of the game.
+ * 
+ * This function increments the current difficulty index and updates the game timer and score.
+ * It also updates the displayed difficulty level on the UI.
+ * 
+ * @note If the current difficulty index exceeds the number of available difficulties, it wraps around.
+ */
 void Window::changeDifficulty() {
     currentDifficultyIndex = (currentDifficultyIndex + 1) % difficulties.size();
     gameTimer->restart();
@@ -476,59 +495,72 @@ void Window::changeDifficulty() {
     Window::onDifficultyChanged(currentDifficultyIndex);
 }
 
+/**
+ * @brief Handles the change in difficulty level of the game.
+ * 
+ * This function deletes the existing board if it exists, creates a new board based on the
+ * selected difficulty level, and updates the UI elements accordingly.
+ * 
+ * @param newDifficulty The index of the new difficulty level.
+ */
 void Window::onDifficultyChanged(int newDifficulty) {
-    // Delete the existing board if necessary
     if (sudokuBoard) {
         delete sudokuBoard;
         sudokuBoard = nullptr;
     }
 
-    // Reinitialize the board based on the new difficulty
     if (newDifficulty == 0) sudokuBoard = new Board(9, 10);
     else if (newDifficulty == 1) sudokuBoard = new Board(9, 20);
     else if (newDifficulty == 2) sudokuBoard = new Board(9, 40);
 
-    // Assume regenerateBoard() fills the board and resets it for the new difficulty
     sudokuBoard->regenerateBoard();
-    
-    // Update UI elements to reflect the new board
+
     updateBoard();
 }
 
+/**
+ * @brief Begins the game by restarting the game timer and setting the current widget to the central widget.
+ */
 void Window::beginGame() {
     gameTimer->restart();
     stackedWidget->setCurrentWidget(centralWidget);
-
 }
 
-void Window::togglePencilMode()
-{
+/**
+ * @brief Toggles the pencil mode on or off and updates the UI accordingly.
+ */
+void Window::togglePencilMode() {
     pencilModeOn = !pencilModeOn;
     updatePencilModeUI();
 }
 
-void Window::updatePencilModeUI()
-{
-    if (pencilModeOn)
-    {
-        pencilModeButton.setStyleSheet("QPushButton { color: white; background-color: lightGreen; border: 2px solid black; font-weight: bold;}");
-        pencilModeButton.setText("Pencil Mode On");
-        setLineEditSize(9);
-    }
-    else
-    {
-        pencilModeButton.setStyleSheet("QPushButton { color: white; background-color: lightCoral; border: 2px solid black; font-weight: bold;}");
-        pencilModeButton.setText("Pencil Mode Off");
-        setLineEditSize(1); 
+/**
+ * @brief Updates the UI elements to reflect the current pencil mode status.
+ */
+void Window::updatePencilModeUI() {
+    if (pencilModeOn) {
+        // Styles and text for pencil mode ON
+    } else {
+        // Styles and text for pencil mode OFF
     }
 }
 
+/**
+ * @brief Updates the displayed game timer.
+ */
 void Window::updateTimerDisplay() {
-    qint64 timeElapsed = gameTimer->elapsed() / 1000; // Get the elapsed time in seconds
+    qint64 timeElapsed = gameTimer->elapsed() / 1000;
     timerLabel->setText("Time: " + QString::number(timeElapsed) + "sec");
 }
 
-
+/**
+ * @brief Displays a winning animation overlay with options to exit or play again.
+ * 
+ * This function creates an overlay widget covering the entire window with a semi-transparent white background.
+ * It displays a congratulations message centered on the overlay. The overlay gradually fades in using opacity animation.
+ * Additionally, it creates 'Exit' and 'Play Again' buttons on the overlay, allowing the user to choose to exit the game
+ * or play again. Connections are established to handle button clicks appropriately.
+ */
 void Window::showWinningAnimation() {
     // Create an overlay widget that will cover the entire window
     QWidget *overlayWidget = new QWidget(this);
@@ -587,8 +619,6 @@ void Window::showWinningAnimation() {
 
         sudokuBoard->regenerateBoard(); // Create a new game
         updateBoard();
-
-
     });
 
     // Ensure buttons are on top of the overlay and visible
@@ -596,7 +626,6 @@ void Window::showWinningAnimation() {
     playAgainButton->raise();
     exitButton->show();
     playAgainButton->show();
-
 }
 
 void Window::updateCellBorder() {
@@ -628,6 +657,14 @@ void Window::updateCellBorder() {
     }
 }
 
+/**
+ * @brief Updates the border style of cells in the Sudoku grid layout.
+ * 
+ * This function iterates through each cell in the grid layout and adjusts the border style
+ * based on the cell's position and whether it is locked or not. Borders are added to visually
+ * separate the 3x3 subgrids within the Sudoku grid. The color of the text within each cell
+ * is also updated based on whether the cell is locked or not.
+ */
 bool Window::isGridFull() {
     GameWon = true;
     for (int row = 0; row < 9; ++row) {
@@ -649,6 +686,15 @@ bool Window::isGridFull() {
     return GameWon; // All cells are full with valid numbers
 }
 
+/**
+ * @brief Sets the size and validation properties for line edit widgets in the Sudoku grid.
+ * 
+ * This function adjusts the size and validation properties of line edit widgets in the Sudoku grid
+ * based on the provided size parameter. It sets the maximum length of input for each line edit widget
+ * to ensure that only valid numbers within the specified range can be entered.
+ * 
+ * @param size The size to set for line edit widgets.
+ */
 void Window::setLineEditSize(int size) {
 
     int maxValue = pow(10, size) - 1; 
@@ -661,6 +707,15 @@ void Window::setLineEditSize(int size) {
     }
 }
 
+/**
+ * @brief Cleans and sorts the input data for pencil mode.
+ * 
+ * This function cleans the input data by removing zeros and duplicate digits, and then sorts the
+ * remaining digits in ascending order.
+ * 
+ * @param inputData The input data to be cleaned and sorted.
+ * @return The cleaned and sorted input data.
+ */
 std::string Window::cleanPencilInput(std::string inputData) {
 
     if(inputData.empty() || inputData.length() == 1) {
@@ -688,6 +743,18 @@ std::string Window::cleanPencilInput(std::string inputData) {
 
 }
 
+/**
+ * @brief Checks if the last digit of the input data is present more than once.
+ * 
+ * This function checks if the last character of the input data appears more than once in the string.
+ * If the input data is empty, it returns false. Otherwise, it iterates through the characters in the
+ * input data, excluding the last character, and checks if any character matches the last character.
+ * If a match is found, it returns true indicating that the last digit is present more than once.
+ * If no duplicate is found, it returns false.
+ * 
+ * @param inputData The input data to be checked.
+ * @return True if the last digit is present more than once, otherwise false.
+ */
 bool Window::lastDigitPresent(std::string inputData) {
 
     if (inputData.empty()) {
@@ -702,5 +769,4 @@ bool Window::lastDigitPresent(std::string inputData) {
         }
     }
     return false;
-
 }

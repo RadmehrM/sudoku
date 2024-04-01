@@ -1,5 +1,26 @@
+/**
+ * @brief Menu Class
+ * 
+ * This class is used to create the main menu splash screen
+ * 
+ * @author Daniel Gomes
+ * @author Zain Raza
+ * @author Radmehr Mehdipour
+ * @author Sreethan Vuppala
+ * @author Aidan Freeman
+ */
+
 #include "menu.h"
 
+/**
+ * @brief Constructs a Menu widget.
+ * 
+ * This constructor sets up the menu interface for the Sudoku game.
+ * It adds a title, start game button, difficulty selection button, and an exit button to the layout.
+ * The menu provides options to start the game, change difficulty, and exit the application.
+ * 
+ * @param parent The parent widget which owns this Menu instance.
+ */
 Menu::Menu(QWidget *parent) : QWidget(parent)  {
         QVBoxLayout *layout = new QVBoxLayout(this);
 
@@ -42,22 +63,49 @@ Menu::Menu(QWidget *parent) : QWidget(parent)  {
 
 };
 
+/**
+ * @brief Starts the game.
+ * 
+ * This slot is triggered when the 'Start Game' button is clicked.
+ * It hides the menu and emits the beginGame signal to notify the main window
+ * to start the game.
+ */
 void Menu::startGame() {
         this->hide();
         emit beginGame();
 }
 
+/**
+ * @brief Exits the application.
+ * 
+ * This slot is triggered when the 'Exit' button is clicked.
+ * It terminates the application.
+ */
 void Menu::exit() {
         QApplication::quit();
 }
 
+/**
+ * @brief Changes the difficulty of the game.
+ * 
+ * This slot is triggered when the difficulty selection button is clicked.
+ * It cycles through the available difficulties and updates the button text.
+ * It emits the difficultyChanged signal to notify the main window about
+ * the change in difficulty.
+ */
 void Menu::changeDifficulty() {
     currentDifficultyIndex = (currentDifficultyIndex + 1) % difficulties.size();
     button2->setText("Difficulty: " + QString::fromStdString(difficulties[currentDifficultyIndex]));
     emit difficultyChanged(currentDifficultyIndex);
 }
 
-
+/**
+ * @brief Retrieves the current difficulty setting.
+ * 
+ * This function provides access to the current difficulty index.
+ * 
+ * @returns The current difficulty index as an integer.
+ */
 int Menu::getDifficulty() {
         return currentDifficultyIndex;
 }

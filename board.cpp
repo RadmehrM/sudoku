@@ -1,3 +1,14 @@
+/**
+ * @brief Board Class
+ * 
+ * This class is used to generate the board, handle its logic, and add the additional components needed for the user to play.
+ *
+ * @author Daniel Gomes
+ * @author Zain Raza
+ * @author Radmehr Mehdipour
+ * @author Sreethan Vuppala
+ * @author Aidan Freeman
+ */
 
 #include "board.h"
 
@@ -324,22 +335,50 @@ int** Board::getBoard() {
     return board;
 }
 
+/**
+ * @brief Initializes all pencil marks to false.
+ * 
+ * This function goes through the 3D array pencilMarks and sets each value to false, effectively
+ * clearing any previously set pencil marks on the board.
+ */
 void Board::initPencilMarks() {
     memset(pencilMarks, false, sizeof(pencilMarks));
 }
 
+/**
+ * @brief Adds a pencil mark for a given number on the board.
+ * 
+ * @param row The row index where the pencil mark is to be added.
+ * @param col The column index where the pencil mark is to be added.
+ * @param mark The number to be marked, in the range 1-9.
+ */
 void Board::addPencilMark(int row, int col, int mark) {
     if (mark >= 1 && mark <= 9) {
         pencilMarks[row][col][mark - 1] = true;
     }
 }
 
+/**
+ * @brief Removes a pencil mark for a given number on the board.
+ * 
+ * @param row The row index from which the pencil mark is to be removed.
+ * @param col The column index from which the pencil mark is to be removed.
+ * @param mark The number for which the pencil mark is to be removed, in the range 1-9.
+ */
 void Board::removePencilMark(int row, int col, int mark) {
     if (mark >= 1 && mark <= 9) {
         pencilMarks[row][col][mark - 1] = false;
     }
 }
 
+/**
+ * @brief Checks if a pencil mark exists for a given number on the board.
+ * 
+ * @param row The row index to be checked.
+ * @param col The column index to be checked.
+ * @param mark The number to check for a pencil mark, in the range 1-9.
+ * @return true if the pencil mark is present, false otherwise.
+ */
 bool Board::hasPencilMark(int row, int col, int mark) {
     if (mark >= 1 && mark <= 9) {
         return pencilMarks[row][col][mark - 1];
@@ -347,14 +386,34 @@ bool Board::hasPencilMark(int row, int col, int mark) {
     return false;
 }
 
+/**
+ * @brief Checks if a cell on the board is locked.
+ * 
+ * @param row The row index of the cell.
+ * @param col The column index of the cell.
+ * @return True if the cell is locked, otherwise false.
+ */
 bool Board::isLocked(int row, int col) {
     return locked[row][col];
 }
 
+/**
+ * @brief Checks if a cell on the board is scored.
+ * 
+ * @param row The row index of the cell.
+ * @param col The column index of the cell.
+ * @return True if the cell is scored, otherwise false.
+ */
 bool Board::isScored(int row, int col) {
     return scored[row][col];
 }
 
+/**
+ * @brief Marks a cell on the board as scored.
+ * 
+ * @param row The row index of the cell.
+ * @param col The column index of the cell.
+ */
 void Board::setScored(int row, int col) {
     scored[row][col] = true; 
 }

@@ -63,7 +63,7 @@ private:
   QLabel *scoreLabel;
   QPushButton *viewLogbookButton;
   QWidget *centralWidget;
-  HintsWindow *hintsWindow;
+  Hints *hintsWindow;
   QLineEdit *lineEdit;
   QTextEdit *textEdit; 
   QLabel *timerLabel; // Label to display the timer
@@ -85,4 +85,4 @@ private:
 
 };
 
-#endif
+#endif  // WINDOW_H
