@@ -1,3 +1,4 @@
+
 #include "window.h"
 #include <QLineEdit>
 #include <QValidator>
@@ -8,6 +9,10 @@
 #include <iostream>
 #include "hints.h"
 #include <QPalette>
+#include <QStringList>
+#include <QSet>
+#include <QString>
+#include <unordered_set>
 
 // Winning Animation Imports //
 #include <QWidget>
@@ -16,6 +21,7 @@
 #include <QPropertyAnimation>
 #include <QTimer>
 #include <QFont>
+
 
 using namespace std;
 
@@ -61,20 +67,23 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores(), gameD
             QString lineEditStyle = "border: 1px solid black;";
             if ((row + 1) % 3 == 0 && row != 8) lineEditStyle.append("border-bottom: 3px solid black;");
             if ((col + 1) % 3 == 0 && col != 8) lineEditStyle.append("border-right: 3px solid black;");
-            lineEdit->setStyleSheet(lineEditStyle + " color: black;");
-
+        
             gridlayout->addWidget(lineEdit, row, col);
             
             // Set the value of the LineEdit to the corresponding value in the board
             int value = sudokuBoard->getBoard()[row][col];
             lineEdit->setText(value != 0 ? QString::number(value) : "");
-            lineEdit->setReadOnly(value != 0); // Pre-filled cells are read-only
-
+            lineEdit->setReadOnly(sudokuBoard->isLocked(row, col)); // Pre-filled cells are read-only
+            if(sudokuBoard->isLocked(row, col)) {
+                lineEdit->setStyleSheet(lineEditStyle + " color: black;");
+            } else {
+                lineEdit->setStyleSheet(lineEditStyle + " color: blue;");
+            }
+            
             connect(lineEdit, &QLineEdit::textEdited, this, [this] {
                 validateInput();
-                sudokuBoard->printSudoku();
-            }
-            );
+                // sudokuBoard->printSudoku();
+            });
 
 
         }
@@ -111,13 +120,20 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores(), gameD
     QPushButton *newGameButton = new QPushButton("New Game");
     QPushButton *viewLogbookButton = new QPushButton("View Logbook");
     QPushButton *hint = new QPushButton("Hint");
+    QPushButton *exitButton = new QPushButton("Exit Game");
+    pencilModeButton.setText("Pencil Mode Off");
+    difficultyButton.setText("Difficulty: Easy");
     
     // hints->resize(200, hints->height());
     fillGridButton->setFixedSize(145,45);
+    difficultyButton.setFixedSize(145,45); 
     newGameButton->setFixedSize(145,45);
     viewLogbookButton->setFixedSize(145,45);
     hint->setFixedSize(145,45);
-    
+    pencilModeButton.setFixedSize(145,45) ;
+    exitButton->setFixedSize(145,45); 
+
+    pencilModeOn = false;
 
     scoreLabel = new QLabel("Score: 0", this); // Initialize the QLabel with 'this' as the parent
     scoreLabel->setAlignment(Qt::AlignCenter);
@@ -130,11 +146,14 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores(), gameD
         updateBoard();
         showWinningAnimation();
         });
+
+    connect(&difficultyButton, &QPushButton::clicked, this, &Window::changeDifficulty);
+
     connect(newGameButton, &QPushButton::clicked, this, [this] {
         qint64 currentGameDuration = gameTimer->elapsed();
         gameDurations.push_back(currentGameDuration); // Save the duration of the current game
         gameTimer->restart(); // Restart the timer for the new game
-
+        gameDifficulties.push_back(currentDifficultyIndex);
         scores.push_back(score); // Save the current score
         score = 0; // Reset the score for the new game
         scoreLabel->setText("Score: " + QString::number(score)); // Update the score label
@@ -148,22 +167,30 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores(), gameD
     });
 
     connect(hint, &QPushButton::clicked, hintsWindow, &HintsWindow::showHint);
+    connect(&pencilModeButton, &QPushButton::clicked, this, &Window::togglePencilMode);
+    connect(exitButton, &QPushButton::clicked, this, [this] {
+        QApplication::quit();
+    });
     
 
     buttonLayout->addWidget(timerLabel);
+    buttonLayout->addWidget(&difficultyButton);
     buttonLayout->addWidget(fillGridButton);
     buttonLayout->addWidget(newGameButton);
     buttonLayout->addWidget(viewLogbookButton);
+    buttonLayout->addWidget(&pencilModeButton);
     buttonLayout->addWidget(hint);
+    buttonLayout->addWidget(exitButton);
     //buttonLayout->addWidget(hintsWindow);
     buttonLayout->addStretch(); // Push buttons to the top
 
-    fillGridButton->setStyleSheet("QPushButton { color: white; background-color: green; border: 2px solid black; }");
-    newGameButton->setStyleSheet("QPushButton { color: white; background-color: blue; border: 2px solid black; }");
-    viewLogbookButton->setStyleSheet("QPushButton { color: white; background-color: red; border: 2px solid black; }");
-    hint->setStyleSheet("QPushButton { color: white; background-color: orange; border: 2px solid black; }");
-
-
+    fillGridButton->setStyleSheet("QPushButton { color: white; background-color: green; border: 2px solid black; font-weight: bold;}");
+    difficultyButton.setStyleSheet("QPushButton { color: white; background-color: darkMagenta; border: 2px solid black; font-weight: bold;}");
+    newGameButton->setStyleSheet("QPushButton { color: white; background-color: blue; border: 2px solid black; font-weight: bold;}");
+    viewLogbookButton->setStyleSheet("QPushButton { color: white; background-color: red; border: 2px solid black; font-weight: bold;}");
+    hint->setStyleSheet("QPushButton { color: white; background-color: orange; border: 2px solid black; font-weight: bold;}");
+    pencilModeButton.setStyleSheet("QPushButton { color: white; background-color: lightCoral; border: 2px solid black; font-weight: bold;}");
+    exitButton->setStyleSheet("QPushButton { color: white; background-color: darkRed; border: 2px solid black; font-weight: bold;}");
 
     // Add the button layout to the main layout
     boxesOnlyLayout->addLayout(buttonLayout);
@@ -172,22 +199,19 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores(), gameD
     optionsLayout->addWidget(hintsWindow);
     mainLayout->addLayout(optionsLayout);
     
-
     // Set the main layout as the layout for the central widget
     centralWidget->setLayout(mainLayout);
 
     // Set style for the central widget
     centralWidget->setStyleSheet("border: 2px solid black;");
 
-    
     stackedWidget = new QStackedWidget(this);
     Menu *menu = new Menu(stackedWidget);
     menu->resize(850,800);
-    menu->setStyleSheet("{ background-color: white; color: black;}");
+    menu->setStyleSheet("background-color: white; color: black;");
     menu->show();
     connect(menu, &Menu::difficultyChanged, this, &Window::onDifficultyChanged);
     connect(menu, &Menu::beginGame, this, &Window::beginGame);
-
 
     stackedWidget->addWidget(menu);
     stackedWidget->addWidget(centralWidget);
@@ -195,7 +219,6 @@ Window::Window(QWidget *parent) : QMainWindow(parent), score(0), scores(), gameD
 
     // To show the menu:
     stackedWidget->setCurrentWidget(menu);
-
 
 }
 
@@ -237,22 +260,71 @@ void Window::incrementScore(int value) {
   scoreLabel->setText("Score: " + QString::number(score)); // Update the score label
 }
 
+void Window::decrementScore(int value) {
+  score -= value; // Increase the score
+  scoreLabel->setText("Score: " + QString::number(score)); // Update the score label
+}
+
 /**
  * @brief Validates the input in a QLineEdit widget.
  * 
  * This function is called when the text in a QLineEdit widget is edited.
  * It validates the input according to Sudoku rules and highlights conflicting cells.
  */
-void Window::validateInput() {
-    QLineEdit *senderLineEdit = qobject_cast<QLineEdit*>(sender());
-    if (!senderLineEdit) {
-        return; // If for some reason the sender is not a QLineEdit, exit
+void Window::validateInput()
+{
+    QLineEdit *senderLineEdit = qobject_cast<QLineEdit *>(sender());
+    if (!senderLineEdit || senderLineEdit->text().isEmpty())
+    {
+        return; // Exit if the sender is not a QLineEdit or is empty
+    }
+
+    int senderIndex = gridlayout->indexOf(senderLineEdit);
+    int senderRow = senderIndex / 9;
+    int senderColumn = senderIndex % 9;
+
+    if (pencilModeOn)
+    {
+        int pencilMark = senderLineEdit->text().toInt();
+        // cout << "Pencil Mark: " << pencilMark << endl;
+        if (pencilMark < 1 || pencilMark > 999999999)
+        {
+            cout << "Backspace, delete etc clicked " << pencilMark << endl; 
+            // qDebug() << "Invalid pencil mark.";
+            senderLineEdit->clear(); // Clear invalid input
+            return;
+        }
+
+        QString currentText = senderLineEdit->text();
+ 
+        if(currentText.length() == 1) {
+            senderLineEdit->setMaxLength(2);
+            senderLineEdit->setFont(QFont("Arial", 20));
+            senderLineEdit->setText(currentText);
+            return; 
+        }
+
+        QString updatedText = QString::fromStdString(cleanPencilInput(currentText.toStdString()));
+
+        if(updatedText.length() == 1) {
+            senderLineEdit->setMaxLength(2);
+            senderLineEdit->setFont(QFont("Arial", 20));
+            senderLineEdit->setText(updatedText);
+
+        } else {
+
+            senderLineEdit->setMaxLength(updatedText.length() + 1);
+            senderLineEdit->setFont(QFont("Arial", 10));
+            senderLineEdit->setText(updatedText);
+        } 
+
+        return; // Exit to skip normal validation logic
     }
 
     // Determine the position of the sender QLineEdit in the grid
-    const int senderIndex = gridlayout->indexOf(senderLineEdit);
-    const int senderRow = senderIndex / 9;
-    const int senderColumn = senderIndex % 9;
+    senderIndex = gridlayout->indexOf(senderLineEdit);
+    senderRow = senderIndex / 9;
+    senderColumn = senderIndex % 9;
 
     // Convert the input to a number
     bool ok;
@@ -263,6 +335,7 @@ void Window::validateInput() {
         return; // Invalid input, exit the function
     }
 
+    senderLineEdit->setFont(QFont("Arial", 20));
     // Initialize variables to store conflicting cells
     QVector<QLineEdit*> conflictCells;
 
@@ -288,7 +361,7 @@ void Window::validateInput() {
         }
         
         // Highlight the senderLineEdit in red to indicate the wrong input
-        senderLineEdit->setStyleSheet("background-color: red; color: black;");
+        senderLineEdit->setStyleSheet("background-color: red; color: blue;");
 
         // Set a timer to remove the highlight from the conflicting cells after 1 second
         QTimer::singleShot(1000, [conflictCells, senderLineEdit]{
@@ -297,30 +370,33 @@ void Window::validateInput() {
             }
             // Also, clear the input from the sender QLineEdit and reset its style
             senderLineEdit->clear();
-            senderLineEdit->setStyleSheet("border: 1px solid black; color: black;");
+            senderLineEdit->setStyleSheet("border: 1px solid black; color: blue;");
         });
 
         cerr << "The number " << inputValue << " is already in the row, column, or subsection." << endl;
     } else {
         // The number is not conflicting and is valid, lock the cell.
         //senderLineEdit->setReadOnly(true);
-        incrementScore(100);
+        if(!sudokuBoard->isScored(senderRow, senderColumn)) {
+            incrementScore(100);
+            sudokuBoard->setScored(senderRow, senderColumn);
         }
+    }
 
-        QTimer::singleShot(1000, this, [this]() {
+    QTimer::singleShot(1000, this, [this]() {
         updateCellBorder(); // This function is called after a delay of 1000 milliseconds (1 second)
     });
 
     // After each valid move, check if the game is complete
-        if (isGridFull()) {
-            std::cout << "Game complete, showing animation." << std::endl;
-            // Trigger the winning animation
-            showWinningAnimation();
-        }
-        else {
-            std::cout << "Game not complete, continue playing." << std::endl;
-        }
+    if (isGridFull()) {
+        std::cout << "Game complete, showing animation." << std::endl;
+        // Trigger the winning animation
+        showWinningAnimation();
     }
+    else {
+        std::cout << "Game not complete, continue playing." << std::endl;
+    }
+}
 
 /**
  * @brief Checks for conflicts in the Sudoku board.
@@ -359,7 +435,17 @@ void Window::updateBoard() {
                 // Update the text of the QLineEdit
                 lineEdit->setText(value != 0 ? QString::number(value) : "");
                 // Set read-only property for pre-filled cells
-                lineEdit->setReadOnly(value != 0);
+                lineEdit->setReadOnly(sudokuBoard->isLocked(row, col));
+                QString lineEditStyle = "border: 1px solid black;";
+                if ((row + 1) % 3 == 0 && row != 8) lineEditStyle.append("border-bottom: 3px solid black;");
+                if ((col + 1) % 3 == 0 && col != 8) lineEditStyle.append("border-right: 3px solid black;");
+                lineEdit->setFont(QFont("Arial", 20));
+
+                if(sudokuBoard->isLocked(row, col)) {
+                    lineEdit->setStyleSheet(lineEditStyle + " color: black;");
+                } else {
+                    lineEdit->setStyleSheet(lineEditStyle + " color: blue;");
+                }
             }
         }
     }
@@ -370,7 +456,8 @@ void Window::showLogbook() {
     for(int i = 0; i < scores.size(); ++i) {
         qint64 durationSeconds = gameDurations[i] / 1000; // Convert milliseconds to seconds
         logbookContent += "Game " + QString::number(i + 1) + ": Score: " + QString::number(scores[i]) +
-                          ", Time: " + QString::number(durationSeconds) + " seconds\n";
+                          ", Time: " + QString::number(durationSeconds) + " seconds" +
+                          ", Difficulty: " + QString::fromStdString(difficulties[gameDifficulties[i]]) + "\n";
     }
 
     if(logbookContent.isEmpty()) {
@@ -380,6 +467,14 @@ void Window::showLogbook() {
     QMessageBox::information(this, "Logbook", logbookContent);
 }
 
+void Window::changeDifficulty() {
+    currentDifficultyIndex = (currentDifficultyIndex + 1) % difficulties.size();
+    gameTimer->restart();
+    score = 0;
+    scoreLabel->setText("Score: " + QString::number(score));
+    difficultyButton.setText("Difficulty: " + QString::fromStdString(difficulties[currentDifficultyIndex]));
+    Window::onDifficultyChanged(currentDifficultyIndex);
+}
 
 void Window::onDifficultyChanged(int newDifficulty) {
     // Delete the existing board if necessary
@@ -404,6 +499,28 @@ void Window::beginGame() {
     gameTimer->restart();
     stackedWidget->setCurrentWidget(centralWidget);
 
+}
+
+void Window::togglePencilMode()
+{
+    pencilModeOn = !pencilModeOn;
+    updatePencilModeUI();
+}
+
+void Window::updatePencilModeUI()
+{
+    if (pencilModeOn)
+    {
+        pencilModeButton.setStyleSheet("QPushButton { color: white; background-color: lightGreen; border: 2px solid black; font-weight: bold;}");
+        pencilModeButton.setText("Pencil Mode On");
+        setLineEditSize(9);
+    }
+    else
+    {
+        pencilModeButton.setStyleSheet("QPushButton { color: white; background-color: lightCoral; border: 2px solid black; font-weight: bold;}");
+        pencilModeButton.setText("Pencil Mode Off");
+        setLineEditSize(1); 
+    }
 }
 
 void Window::updateTimerDisplay() {
@@ -463,7 +580,7 @@ void Window::showWinningAnimation() {
         qint64 currentGameDuration = gameTimer->elapsed();
         gameDurations.push_back(currentGameDuration); // Save the duration of the current game
         gameTimer->restart(); // Restart the timer for the new game
-
+        gameDifficulties.push_back(currentDifficultyIndex);
         scores.push_back(score); // Save the current score
         score = 0; // Reset the score for the new game
         scoreLabel->setText("Score: " + QString::number(score)); // Update the score label
@@ -498,7 +615,12 @@ void Window::updateCellBorder() {
                         if ((row + 1) % 3 == 0 && row != 8) lineEditStyle.append("border-bottom: 3px solid black;");
                         if ((col + 1) % 3 == 0 && col != 8) lineEditStyle.append("border-right: 3px solid black;");
                         // Apply the style
-                        lineEditCell->setStyleSheet(lineEditStyle + " color: black;");
+                        if(sudokuBoard->isLocked(row,col)) {
+                            lineEditCell->setStyleSheet(lineEditStyle + " color: black;");
+                        } else {
+                            lineEditCell->setStyleSheet(lineEditStyle + " color: blue;");
+                        }
+
                     }
                 }
             }
@@ -527,5 +649,58 @@ bool Window::isGridFull() {
     return GameWon; // All cells are full with valid numbers
 }
 
+void Window::setLineEditSize(int size) {
 
+    int maxValue = pow(10, size) - 1; 
+    for(int row = 0; row < 9; row++) {
+        for(int col = 0; col < 9; col++) {
+            QLineEdit *lineEdit = qobject_cast<QLineEdit*>(gridlayout->itemAtPosition(row, col)->widget());
+            lineEdit->setMaxLength(std::max(lineEdit->text().length() + 1, size)); 
+            lineEdit->setValidator(new QIntValidator(1, maxValue, this));
+        }
+    }
+}
 
+std::string Window::cleanPencilInput(std::string inputData) {
+
+    if(inputData.empty() || inputData.length() == 1) {
+        return inputData; 
+    }
+
+    size_t pos = inputData.find("0");
+    while (pos < inputData.length()) {
+        inputData.erase(pos, 1);
+        pos = inputData.find("0");
+    }
+
+    if(lastDigitPresent(inputData)) {
+    
+        // cout << "Before erase: " << inputData << endl; 
+        char lastChar = inputData.back();
+        size_t pos = inputData.find(lastChar);
+        while (pos < inputData.length()) {
+            inputData.erase(pos, 1);
+            pos = inputData.find(lastChar);
+        }
+    }
+    std::sort(inputData.begin(), inputData.end());
+    return inputData;
+
+}
+
+bool Window::lastDigitPresent(std::string inputData) {
+
+    if (inputData.empty()) {
+        return false;
+    }
+
+    char lastChar = inputData.back(); 
+
+    for (size_t i = 0; i < inputData.size() - 1; i++) {
+        if (inputData[i] == lastChar) {
+            return true;
+        }
+    }
+    return false;
+
+}

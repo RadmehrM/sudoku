@@ -13,7 +13,9 @@ private:
     int N;
     int num_of_rows;
     int missing_dig;
-
+    bool pencilMarks[9][9][9];
+    bool locked[9][9];
+    bool scored[9][9];
 
 public:
     int** userBoard;
@@ -55,7 +57,19 @@ public:
 
     int** getBoard();
 
+    void initPencilMarks();
 
+    void addPencilMark(int row, int col, int mark);
+
+    void removePencilMark(int row, int col, int mark);
+
+    bool hasPencilMark(int row, int col, int mark);
+
+    bool isLocked(int row, int col); 
+
+    bool isScored(int row, int col); 
+
+    void setScored(int row, int col); 
 };
 
 #endif // BOARD_H

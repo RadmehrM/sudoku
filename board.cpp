@@ -1,3 +1,4 @@
+
 #include "board.h"
 
 using namespace std;
@@ -133,6 +134,7 @@ void Board::fillBox(int row, int col) {
                     num = randomGenerator(N);
                 } while (!unUsedInBox(row, col, num));
                 board[row + i][col + j] = num;
+                locked[row +i][col + j] = true; 
         }
     }
 }
@@ -175,10 +177,12 @@ bool Board::fillRemaining(int i, int j) {
     for (int num = 1; num <= N; num++) {
         if (CheckIfSafe(i, j, num)) {
             board[i][j] = num;
+            locked[i][j] = true; 
             if (fillRemaining(i, j + 1)) {
                 return true;
             }
             board[i][j] = 0;
+            locked[i][j] = false; 
         }
     }
     return false;
@@ -202,6 +206,8 @@ void Board::remove_missing_digs() {
         if (board[i][j] != 0) {
             count--;
             board[i][j] = 0;
+            locked[i][j] = false; 
+            scored[i][j] = false; 
         }
     }
 }
@@ -226,6 +232,8 @@ void Board::resetBoard() {
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
             board[i][j] = 0;
+            locked[i][j] = false; 
+            scored[i][j] = false; 
         }
     }
 }
@@ -316,6 +324,37 @@ int** Board::getBoard() {
     return board;
 }
 
+void Board::initPencilMarks() {
+    memset(pencilMarks, false, sizeof(pencilMarks));
+}
 
+void Board::addPencilMark(int row, int col, int mark) {
+    if (mark >= 1 && mark <= 9) {
+        pencilMarks[row][col][mark - 1] = true;
+    }
+}
 
+void Board::removePencilMark(int row, int col, int mark) {
+    if (mark >= 1 && mark <= 9) {
+        pencilMarks[row][col][mark - 1] = false;
+    }
+}
 
+bool Board::hasPencilMark(int row, int col, int mark) {
+    if (mark >= 1 && mark <= 9) {
+        return pencilMarks[row][col][mark - 1];
+    }
+    return false;
+}
+
+bool Board::isLocked(int row, int col) {
+    return locked[row][col];
+}
+
+bool Board::isScored(int row, int col) {
+    return scored[row][col];
+}
+
+void Board::setScored(int row, int col) {
+    scored[row][col] = true; 
+}
