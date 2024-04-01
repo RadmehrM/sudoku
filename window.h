@@ -18,10 +18,6 @@
 #include <QSet>
 #include <QString>
 
-
-namespace Ui {
-  class Window;
-}
  
 class Window : public QMainWindow {
   Q_OBJECT
