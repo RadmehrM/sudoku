@@ -549,11 +549,19 @@ void Window::togglePencilMode() {
 /**
  * @brief Updates the UI elements to reflect the current pencil mode status.
  */
-void Window::updatePencilModeUI() {
-    if (pencilModeOn) {
-        // Styles and text for pencil mode ON
-    } else {
-        // Styles and text for pencil mode OFF
+void Window::updatePencilModeUI()
+{
+    if (pencilModeOn)
+    {
+        pencilModeButton.setStyleSheet("QPushButton { color: white; background-color: lightGreen; border: 2px solid black; font-weight: bold;}");
+        pencilModeButton.setText("Pencil Mode On");
+        setLineEditSize(9);
+    }
+    else
+    {
+        pencilModeButton.setStyleSheet("QPushButton { color: white; background-color: lightCoral; border: 2px solid black; font-weight: bold;}");
+        pencilModeButton.setText("Pencil Mode Off");
+        setLineEditSize(1); 
     }
 }
 
